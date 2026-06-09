@@ -3,3 +3,5 @@
 !.gitignore
 !site/
 !site/**
+site/**/*.backup*
+site/**/*backup*
