@@ -1,7 +1,7 @@
-# Публикуем только site/ — всё остальное остаётся локально
+# Публикуем только docs/ — всё остальное остаётся локально
 *
 !.gitignore
-!site/
-!site/**
-site/**/*.backup*
-site/**/*backup*
+!docs/
+!docs/**
+docs/**/*.backup*
+docs/**/*backup*
