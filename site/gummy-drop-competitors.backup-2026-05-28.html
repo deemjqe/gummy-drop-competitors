@@ -1,0 +1,2226 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gummy Drop! — Конкуренты (match-3 + travel + building)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --gd-pink: #ff6b9d;
+      --gd-magenta: #e91e8c;
+      --gd-purple: #9b59ff;
+      --gd-blue: #2ec4ff;
+      --gd-mint: #5ce1c5;
+      --gd-gold: #ffc94a;
+      --gd-dark: #1a1530;
+      --gd-text: #2d2648;
+      --gd-muted: #6b6280;
+      --gd-card: #ffffff;
+      --gd-edge: rgba(255, 255, 255, 0.65);
+      --shadow: 0 18px 50px rgba(26, 21, 48, 0.12);
+      --radius: 22px;
+      --radius-sm: 14px;
+      --tier-a: #e8f7f0;
+      --tier-a-text: #127a54;
+      --tier-b: #e8f1ff;
+      --tier-b-text: #1769e0;
+      --tier-c: #fff5d8;
+      --tier-c-text: #936000;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "DM Sans", system-ui, sans-serif;
+      color: var(--gd-text);
+      background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(255, 107, 157, 0.35), transparent 55%),
+        radial-gradient(900px 500px at 90% 0%, rgba(46, 196, 255, 0.3), transparent 50%),
+        linear-gradient(180deg, #f4f0ff 0%, #fef7fb 40%, #eef9ff 100%);
+      min-height: 100vh;
+      line-height: 1.55;
+    }
+
+    .wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 32px 20px 80px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #fff6fb 0%, #f0f7ff 50%, #effffa 100%);
+      border: 1px solid var(--gd-edge);
+      border-radius: calc(var(--radius) + 8px);
+      box-shadow: var(--shadow);
+      padding: 28px 28px 22px;
+      margin-bottom: 28px;
+    }
+
+    .hero h1 {
+      font-family: "Nunito", sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      color: var(--gd-dark);
+      margin-bottom: 8px;
+    }
+
+    .hero .sub {
+      color: var(--gd-muted);
+      font-size: 0.95rem;
+      max-width: 52rem;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .pill {
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid var(--gd-edge);
+      color: var(--gd-muted);
+    }
+
+    section {
+      background: var(--gd-card);
+      border: 1px solid var(--gd-edge);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    section h2 {
+      font-family: "Nunito", sans-serif;
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--gd-dark);
+      margin-bottom: 6px;
+    }
+
+    section .lead {
+      color: var(--gd-muted);
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
+    h3 {
+      font-family: "Nunito", sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      margin: 20px 0 10px;
+      color: var(--gd-dark);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin: 12px 0;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(45, 38, 72, 0.08);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    th, td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid rgba(45, 38, 72, 0.08);
+      vertical-align: top;
+    }
+
+    th {
+      background: linear-gradient(180deg, #f8f5ff, #f0f7ff);
+      font-weight: 700;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--gd-muted);
+      white-space: nowrap;
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    tr:hover td { background: rgba(155, 89, 255, 0.04); }
+
+    tr.ref td {
+      background: linear-gradient(90deg, rgba(255, 201, 74, 0.15), rgba(255, 107, 157, 0.08));
+      font-weight: 600;
+    }
+
+    .num { text-align: center; font-variant-numeric: tabular-nums; }
+    .score { font-weight: 700; color: var(--gd-purple); }
+
+    .tier {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+
+    .tier-a { background: var(--tier-a); color: var(--tier-a-text); }
+    .tier-b { background: var(--tier-b); color: var(--tier-b-text); }
+    .tier-c { background: var(--tier-c); color: var(--tier-c-text); }
+
+    a.store {
+      color: var(--gd-magenta);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    a.store:hover { text-decoration: underline; }
+
+    .legend {
+      display: grid;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: var(--gd-muted);
+      margin-top: 14px;
+      padding: 14px;
+      background: #f8f5ff;
+      border-radius: var(--radius-sm);
+    }
+
+    .legend strong { color: var(--gd-text); }
+
+    ol.rank {
+      padding-left: 1.25rem;
+      margin: 0;
+    }
+
+    ol.rank li {
+      margin-bottom: 6px;
+      padding-left: 4px;
+    }
+
+    .note {
+      font-size: 0.82rem;
+      color: var(--gd-muted);
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px dashed rgba(45, 38, 72, 0.12);
+    }
+
+    .benchmark-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    @media (min-width: 640px) {
+      .benchmark-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+    }
+
+    .bench-card {
+      padding: 14px 16px;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(45, 38, 72, 0.08);
+      background: linear-gradient(135deg, #fff, #f8f5ff);
+    }
+
+    .bench-card .prio {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--gd-purple);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .bench-card h4 {
+      font-family: "Nunito", sans-serif;
+      font-size: 1rem;
+      margin: 4px 0 6px;
+    }
+
+    .bench-card p {
+      font-size: 0.85rem;
+      color: var(--gd-muted);
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--gd-muted);
+      margin-top: 8px;
+    }
+
+    .table-wrap.am-table table {
+      font-size: 0.8rem;
+    }
+
+    .table-wrap.am-table th {
+      white-space: normal;
+      line-height: 1.3;
+      max-width: 7rem;
+    }
+
+    tr.am-filled td {
+      background: rgba(46, 196, 255, 0.06);
+    }
+
+    tr.am-tier-mega td {
+      background: rgba(255, 201, 74, 0.12);
+    }
+
+    .am-val {
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .am-na {
+      color: var(--gd-muted);
+      font-style: italic;
+    }
+
+    .warn-box {
+      padding: 14px 16px;
+      border-radius: var(--radius-sm);
+      background: #fff8e6;
+      border: 1px solid rgba(147, 96, 0, 0.2);
+      color: #5c4a12;
+      font-size: 0.88rem;
+      margin-bottom: 16px;
+    }
+
+    .warn-box a {
+      color: var(--gd-magenta);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <h1>Gummy Drop! — конкуренты</h1>
+      <p class="sub">
+        Match-3 + travel + building. Ранжирование по публичным данным (выручка, инсталлы Google Play, оценки).
+        Таблица схожести — шкала 1–5, где 5 = максимально похоже на Gummy Drop.
+      </p>
+      <div class="meta">
+        <span class="pill">Эталон: 56M+ downloads, 600k+ ratings</span>
+        <span class="pill">Обновлено: май 2026</span>
+        <span class="pill">Внутренний документ</span>
+      </div>
+    </header>
+
+    <section id="similarity">
+      <h2>Таблица схожести (максимально похожие)</h2>
+      <p class="lead">16 тайтлов + эталон Gummy Drop. Критерии: core loop, travel, building, economy, live-ops.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Игра</th>
+              <th class="num">Core</th>
+              <th class="num">Travel</th>
+              <th class="num">Building</th>
+              <th class="num">Economy</th>
+              <th class="num">Live-ops</th>
+              <th class="num">Σ/25</th>
+              <th>Бенчмарк</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="ref">
+              <td>—</td>
+              <td><strong>Gummy Drop!</strong> (эталон)</td>
+              <td class="num">5</td>
+              <td class="num">5</td>
+              <td class="num">5</td>
+              <td class="num">5</td>
+              <td class="num">4</td>
+              <td class="num score">24</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>Travel Match</td>
+              <td class="num">5</td>
+              <td class="num">5</td>
+              <td class="num">3</td>
+              <td class="num">4</td>
+              <td class="num">4</td>
+              <td class="num score">21</td>
+              <td><span class="tier tier-a">A</span></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Travel Crush</td>
+              <td class="num">5</td>
+              <td class="num">5</td>
+              <td class="num">3</td>
+              <td class="num">3</td>
+              <td class="num">4</td>
+              <td class="num score">20</td>
+              <td><span class="tier tier-a">A</span></td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Clockmaker</td>
+              <td class="num">5</td>
+              <td class="num">3</td>
+              <td class="num">4</td>
+              <td class="num">4</td>
+              <td class="num">4</td>
+              <td class="num score">20</td>
+              <td><span class="tier tier-a">A</span></td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Gardenscapes</td>
+              <td class="num">5</td>
+              <td class="num">2</td>
+              <td class="num">4</td>
+              <td class="num">4</td>
+              <td class="num">5</td>
+              <td class="num score">20</td>
+              <td><span class="tier tier-a">A</span></td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Homescapes</td>
+              <td class="num">5</td>
+              <td class="num">1</td>
+              <td class="num">5</td>
+              <td class="num">4</td>
+              <td class="num">5</td>
+              <td class="num score">20</td>
+              <td><span class="tier tier-a">A</span></td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>Matchington Mansion</td>
+              <td class="num">5</td>
+              <td class="num">2</td>
+              <td class="num">5</td>
+              <td class="num">4</td>
+              <td class="num">4</td>
+              <td class="num score">20</td>
+              <td><span class="tier tier-a">A</span></td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td>Fishdom</td>
+              <td class="num">5</td>
+              <td class="num">2</td>
+              <td class="num">4</td>
+              <td class="num">4</td>
+              <td class="num">5</td>
+              <td class="num score">20</td>
+              <td><span class="tier tier-b">B</span></td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td>Project Makeover</td>
+              <td class="num">5</td>
+              <td class="num">2</td>
+              <td class="num">4</td>
+              <td class="num">4</td>
+              <td class="num">4</td>
+              <td class="num score">19</td>
+              <td><span class="tier tier-b">B</span></td>
+            </tr>
+            <tr>
+              <td>9</td>
+              <td>Tropicats</td>
+              <td class="num">5</td>
+              <td class="num">3</td>
+              <td class="num">4</td>
+              <td class="num">4</td>
+              <td class="num">3</td>
+              <td class="num score">19</td>
+              <td><span class="tier tier-b">B</span></td>
+            </tr>
+            <tr>
+              <td>10</td>
+              <td>Lily's Garden</td>
+              <td class="num">4</td>
+              <td class="num">2</td>
+              <td class="num">4</td>
+              <td class="num">4</td>
+              <td class="num">4</td>
+              <td class="num score">18</td>
+              <td><span class="tier tier-b">B</span></td>
+            </tr>
+            <tr>
+              <td>11</td>
+              <td>Mystery Match Village</td>
+              <td class="num">5</td>
+              <td class="num">2</td>
+              <td class="num">4</td>
+              <td class="num">3</td>
+              <td class="num">3</td>
+              <td class="num score">17</td>
+              <td><span class="tier tier-b">B</span></td>
+            </tr>
+            <tr>
+              <td>12</td>
+              <td>Manor Matters</td>
+              <td class="num">3</td>
+              <td class="num">2</td>
+              <td class="num">4</td>
+              <td class="num">3</td>
+              <td class="num">4</td>
+              <td class="num score">16</td>
+              <td><span class="tier tier-c">C</span></td>
+            </tr>
+            <tr>
+              <td>13</td>
+              <td>June's Journey</td>
+              <td class="num">2</td>
+              <td class="num">4</td>
+              <td class="num">4</td>
+              <td class="num">3</td>
+              <td class="num">5</td>
+              <td class="num score">18</td>
+              <td><span class="tier tier-c">C</span></td>
+            </tr>
+            <tr>
+              <td>14</td>
+              <td>Pearl's Peril</td>
+              <td class="num">2</td>
+              <td class="num">4</td>
+              <td class="num">4</td>
+              <td class="num">3</td>
+              <td class="num">4</td>
+              <td class="num score">17</td>
+              <td><span class="tier tier-c">C</span></td>
+            </tr>
+            <tr>
+              <td>15</td>
+              <td>Merge Gardens</td>
+              <td class="num">2</td>
+              <td class="num">2</td>
+              <td class="num">4</td>
+              <td class="num">3</td>
+              <td class="num">3</td>
+              <td class="num score">14</td>
+              <td><span class="tier tier-c">C</span></td>
+            </tr>
+            <tr>
+              <td>16</td>
+              <td>Cradle of Empires</td>
+              <td class="num">5</td>
+              <td class="num">4</td>
+              <td class="num">5</td>
+              <td class="num">4</td>
+              <td class="num">4</td>
+              <td class="num score">22</td>
+              <td><span class="tier tier-a">A</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="legend">
+        <strong>Легенда критериев (1–5):</strong>
+        <span><strong>Core loop</strong> — уровневый swap match-3, как в Gummy Drop</span>
+        <span><strong>Travel</strong> — смена городов/стран, «паспорт», глобальное путешествие</span>
+        <span><strong>Building</strong> — восстановление памятников/локаций за ресурсы с уровней</span>
+        <span><strong>Economy</strong> — несколько soft-валют, lives, гейты на строительство</span>
+        <span><strong>Live-ops</strong> — ивенты, турниры, сезонный контент</span>
+        <span><strong>Tier A</strong> — копировать механики и messaging · <strong>B</strong> — meta и live-ops · <strong>C</strong> — пересечение по аудитории</span>
+      </div>
+    </section>
+
+    <section id="benchmark">
+      <h2>Топ-5 для бенчмарка ASO / UA</h2>
+      <p class="lead">Приоритет для разбора сторов и креативов под Gummy Drop.</p>
+      <div class="benchmark-grid">
+        <article class="bench-card">
+          <div class="prio">Приоритет 1</div>
+          <h4>Travel Match</h4>
+          <p>Travel-fantasy: города, «путешествие», match-3 в описаниях и креативах.</p>
+        </article>
+        <article class="bench-card">
+          <div class="prio">Приоритет 2</div>
+          <h4>Travel Crush</h4>
+          <p>Travel + культурный угол (trivia, города мира).</p>
+        </article>
+        <article class="bench-card">
+          <div class="prio">Приоритет 3</div>
+          <h4>Gardenscapes</h4>
+          <p>Эталон meta + live-ops Playrix: restore + story без travel.</p>
+        </article>
+        <article class="bench-card">
+          <div class="prio">Приоритет 4</div>
+          <h4>Clockmaker</h4>
+          <p>Восстановление города — ближе к «архитектор + памятники».</p>
+        </article>
+        <article class="bench-card">
+          <div class="prio">Приоритет 5</div>
+          <h4>Homescapes</h4>
+          <p>Building-meta, длинная сюжетная прогрессия, retention.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="coe-cluster">
+      <h2>CoE-кластер (match-3 + citybuilder + travel)</h2>
+      <p class="lead">Отдельная группа максимально близких игр по паттерну Cradle of Empires: match-3 + развитие города/поселения + экспедиционный контекст.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Игра</th>
+              <th>Издатель</th>
+              <th>Почему близко к GD</th>
+              <th>Приоритет</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Cradle of Empires</td>
+              <td>Awem</td>
+              <td>Match-3 + city build + экспедиции по карте</td>
+              <td><span class="tier tier-a">A+</span></td>
+            </tr>
+            <tr>
+              <td>Jewels of Rome</td>
+              <td>G5</td>
+              <td>Сильный цикл «уровень → восстановление города»</td>
+              <td><span class="tier tier-a">A</span></td>
+            </tr>
+            <tr>
+              <td>Jewels of Egypt</td>
+              <td>G5</td>
+              <td>Очень схожий citybuilder-meta с историческим travel-сеттингом</td>
+              <td><span class="tier tier-a">A</span></td>
+            </tr>
+            <tr>
+              <td>Secrets of Atlantis</td>
+              <td>Vizor</td>
+              <td>Близкий «археология/путешествия + match-3 + развитие»</td>
+              <td><span class="tier tier-b">B</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Следующий шаг: снять AppMagic для этого кластера в том же формате (30d/lifetime/RpD), чтобы сравнение было полностью сопоставимым.</p>
+    </section>
+
+    <section id="appmagic">
+      <h2>Метрики AppMagic</h2>
+      <p class="lead">
+        Данные сняты с AppMagic под твоей сессией в Chrome (~27.05.2026).
+        <strong>30d</strong> — All Stores, таблица издателя (last 30 days), net IAP.
+        <strong>Lifetime</strong> — All Stores, таблица издателя (lifetime).
+        <strong>RpD</strong> — all time с карточки приложения (GP или iOS).
+        У крупных тайтлов виджеты на карточке GP часто показывают lifetime, не 30d.
+      </p>
+      <div class="table-wrap am-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Игра</th>
+              <th>Revenue<br>30d</th>
+              <th>Revenue<br>all time</th>
+              <th>Downloads<br>30d</th>
+              <th>Downloads<br>all time</th>
+              <th>RpD<br>Tier-1 West</th>
+              <th>RpD<br>Tier-1 East</th>
+              <th>RpD<br>Global</th>
+              <th>AppMagic</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="am-filled">
+              <td><strong>Travel Match</strong></td>
+              <td class="am-val">~$5,107</td>
+              <td class="am-val">$5,557,933</td>
+              <td class="am-val">95,441</td>
+              <td class="am-val">3,864,817</td>
+              <td class="am-val">$3.69</td>
+              <td class="am-val">$0.40</td>
+              <td class="am-val">$1.44</td>
+              <td><a class="store" href="https://appmagic.rocks/google-play/travel-match/com.mounthorse.travelmatch" target="_blank" rel="noopener">GP</a></td>
+            </tr>
+            <tr class="am-filled">
+              <td><strong>Travel Crush</strong></td>
+              <td class="am-val">~$254</td>
+              <td class="am-val">$443,910</td>
+              <td class="am-val">4,933</td>
+              <td class="am-val">167,017</td>
+              <td class="am-na">—</td>
+              <td class="am-na">—</td>
+              <td class="am-na">—</td>
+              <td><a class="store" href="https://appmagic.rocks/google-play/travel-crush-match-3-game/com.bebopbee.match3.travelcrush" target="_blank" rel="noopener">GP</a></td>
+            </tr>
+            <tr class="am-filled">
+              <td><strong>Clockmaker</strong></td>
+              <td class="am-val">$1,067,711</td>
+              <td class="am-val">$344,303,932</td>
+              <td class="am-val">225,593</td>
+              <td class="am-val">42,218,664</td>
+              <td class="am-val">$18.22</td>
+              <td class="am-val">$7.77</td>
+              <td class="am-val">$8.16</td>
+              <td><a class="store" href="https://appmagic.rocks/google-play/clockmaker/com.belkatechnologies.clockmaker" target="_blank" rel="noopener">GP</a></td>
+            </tr>
+            <tr class="am-filled">
+              <td><strong>Gardenscapes</strong></td>
+              <td class="am-val">$35,506,464</td>
+              <td class="am-val">$4,460,353,106</td>
+              <td class="am-val">3,419,571</td>
+              <td class="am-val">727,576,336</td>
+              <td class="am-val">$18.16</td>
+              <td class="am-val">$16.35</td>
+              <td class="am-val">$6.13</td>
+              <td><a class="store" href="https://appmagic.rocks/google-play/gardenscapes/com.playrix.gardenscapes" target="_blank" rel="noopener">GP</a></td>
+            </tr>
+            <tr class="am-filled">
+              <td><strong>Homescapes</strong></td>
+              <td class="am-val">$25,060,667</td>
+              <td class="am-val">$3,702,475,808</td>
+              <td class="am-val">1,907,626</td>
+              <td class="am-val">650,509,880</td>
+              <td class="am-val">$16.02</td>
+              <td class="am-val">$14.03</td>
+              <td class="am-val">$5.69</td>
+              <td><a class="store" href="https://appmagic.rocks/iphone/homescapes-match-3-games/1195621598" target="_blank" rel="noopener">iOS</a> · <a class="store" href="https://appmagic.rocks/google-play/homescapes/com.playrix.homescapes" target="_blank" rel="noopener">GP</a></td>
+            </tr>
+            <tr class="am-filled">
+              <td><strong>Matchington Mansion</strong></td>
+              <td class="am-val">$2,781,731</td>
+              <td class="am-val">$729,797,803</td>
+              <td class="am-val">400,697</td>
+              <td class="am-val">209,601,592</td>
+              <td class="am-val">$9.97</td>
+              <td class="am-val">$8.83</td>
+              <td class="am-val">$3.48</td>
+              <td><a class="store" href="https://appmagic.rocks/google-play/matchington-mansion/com.matchington.mansion" target="_blank" rel="noopener">GP</a></td>
+            </tr>
+            <tr class="am-filled">
+              <td><strong>Fishdom</strong></td>
+              <td class="am-val">$20,485,287</td>
+              <td class="am-val">$2,437,982,921</td>
+              <td class="am-val">1,147,319</td>
+              <td class="am-val">571,282,879</td>
+              <td class="am-val">$12.92</td>
+              <td class="am-val">$9.51</td>
+              <td class="am-val">$4.27</td>
+              <td><a class="store" href="https://appmagic.rocks/google-play/fishdom/com.playrix.fishdomdd.gplay" target="_blank" rel="noopener">GP</a></td>
+            </tr>
+            <tr class="am-filled">
+              <td><strong>Project Makeover</strong></td>
+              <td class="am-val">$5,442,143</td>
+              <td class="am-val">$816,453,808</td>
+              <td class="am-val">1,527,618</td>
+              <td class="am-val">302,776,836</td>
+              <td class="am-val">$8.15</td>
+              <td class="am-val">$6.24</td>
+              <td class="am-val">$2.70</td>
+              <td><a class="store" href="https://appmagic.rocks/google-play/project-makeover/com.bgg.jump" target="_blank" rel="noopener">GP</a></td>
+            </tr>
+            <tr class="am-filled">
+              <td><strong>Tropicats</strong></td>
+              <td class="am-val">$34,505</td>
+              <td class="am-val">$19,545,784</td>
+              <td class="am-val">1,325</td>
+              <td class="am-val">3,849,534</td>
+              <td class="am-val">$8.29</td>
+              <td class="am-na">—</td>
+              <td class="am-val">$5.08</td>
+              <td><a class="store" href="https://appmagic.rocks/google-play/tropicats-tropical-cats-puzzle-paradise/net.wooga.tropicats_tropical_cats_puzzle_paradise" target="_blank" rel="noopener">GP</a></td>
+            </tr>
+            <tr class="am-filled">
+              <td><strong>Lily's Garden</strong></td>
+              <td class="am-val">$1,456,785</td>
+              <td class="am-val">$443,282,787</td>
+              <td class="am-val">201,191</td>
+              <td class="am-val">84,854,769</td>
+              <td class="am-val">$17.34</td>
+              <td class="am-val">$5.31</td>
+              <td class="am-val">$5.22</td>
+              <td><a class="store" href="https://appmagic.rocks/google-play/lilys-garden-design-and-relax/dk.tactile.lilysgarden" target="_blank" rel="noopener">GP</a></td>
+            </tr>
+            <tr class="am-filled">
+              <td><strong>Mystery Match Village</strong></td>
+              <td class="am-na">—</td>
+              <td class="am-val">$408,439</td>
+              <td class="am-na">—</td>
+              <td class="am-val">485,521</td>
+              <td class="am-val">$1.37</td>
+              <td class="am-na">—</td>
+              <td class="am-val">$0.84</td>
+              <td><a class="store" href="https://appmagic.rocks/google-play/mystery-match-village/com.outplayentertainment.mmv" target="_blank" rel="noopener">GP</a> · <a class="store" href="https://appmagic.rocks/iphone/mystery-match-village/1509700806" target="_blank" rel="noopener">iOS</a></td>
+            </tr>
+            <tr class="am-filled">
+              <td><strong>Manor Matters</strong></td>
+              <td class="am-val">$1,657,349</td>
+              <td class="am-val">$224,586,624</td>
+              <td class="am-val">111,923</td>
+              <td class="am-val">58,260,848</td>
+              <td class="am-val">$9.00</td>
+              <td class="am-val">$10.69</td>
+              <td class="am-val">$3.85</td>
+              <td><a class="store" href="https://appmagic.rocks/google-play/manor-matters/com.playrix.manormatters" target="_blank" rel="noopener">GP</a></td>
+            </tr>
+            <tr class="am-filled">
+              <td><strong>June's Journey</strong></td>
+              <td class="am-val">$8,908,784</td>
+              <td class="am-val">$943,495,793</td>
+              <td class="am-val">521,834</td>
+              <td class="am-val">84,151,211</td>
+              <td class="am-val">$21.51</td>
+              <td class="am-val">$11.91</td>
+              <td class="am-val">$11.21</td>
+              <td><a class="store" href="https://appmagic.rocks/google-play/junes-journey-hidden-objects/net.wooga.junes_journey_hidden_object_mystery_game" target="_blank" rel="noopener">GP</a></td>
+            </tr>
+            <tr class="am-filled">
+              <td><strong>Pearl's Peril</strong></td>
+              <td class="am-val">$136,120</td>
+              <td class="am-val">$86,610,060</td>
+              <td class="am-val">40,388</td>
+              <td class="am-val">21,286,261</td>
+              <td class="am-val">$5.87</td>
+              <td class="am-val">$3.34</td>
+              <td class="am-val">$4.07</td>
+              <td><a class="store" href="https://appmagic.rocks/google-play/pearls-peril/com.wooga.pearlsperil" target="_blank" rel="noopener">GP</a></td>
+            </tr>
+            <tr class="am-filled">
+              <td><strong>Merge Gardens</strong></td>
+              <td class="am-val">$1,548,019</td>
+              <td class="am-val">$118,011,903</td>
+              <td class="am-val">96,675</td>
+              <td class="am-val">17,653,986</td>
+              <td class="am-val">$9.44</td>
+              <td class="am-val">$5.55</td>
+              <td class="am-val">$6.68</td>
+              <td><a class="store" href="https://appmagic.rocks/google-play/merge-gardens/com.futureplay.mergematch" target="_blank" rel="noopener">GP</a></td>
+            </tr>
+            <tr class="am-filled am-tier-mega">
+              <td><strong>Royal Match</strong></td>
+              <td class="am-val">$98,172,485</td>
+              <td class="am-val">$4,968,748,815</td>
+              <td class="am-val">3,926,419</td>
+              <td class="am-val">426,574,633</td>
+              <td class="am-val">$35.29</td>
+              <td class="am-val">$26.15</td>
+              <td class="am-val">$11.65</td>
+              <td><a class="store" href="https://appmagic.rocks/iphone/royal-match/1482155847" target="_blank" rel="noopener">iOS</a> · <a class="store" href="https://appmagic.rocks/google-play/royal-match/com.dreamgames.royalmatch" target="_blank" rel="noopener">GP</a></td>
+            </tr>
+            <tr class="am-filled am-tier-mega">
+              <td><strong>Candy Crush Saga</strong></td>
+              <td class="am-val">$85,121,577</td>
+              <td class="am-val">$8,932,895,619</td>
+              <td class="am-val">7,629,373</td>
+              <td class="am-val">1,474,920,497</td>
+              <td class="am-val">$29.15</td>
+              <td class="am-val">$15.95</td>
+              <td class="am-val">$6.06</td>
+              <td><a class="store" href="https://appmagic.rocks/google-play/candy-crush-saga/com.king.candycrushsaga" target="_blank" rel="noopener">GP</a> · <a class="store" href="https://appmagic.rocks/iphone/candy-crush-saga/553834731" target="_blank" rel="noopener">iOS</a></td>
+            </tr>
+            <tr class="am-filled">
+              <td><strong>Toon Blast</strong></td>
+              <td class="am-val">$30,368,407</td>
+              <td class="am-val">$2,302,557,334</td>
+              <td class="am-val">902,204</td>
+              <td class="am-val">186,216,730</td>
+              <td class="am-val">$18.10</td>
+              <td class="am-val">$22.49</td>
+              <td class="am-val">$12.36</td>
+              <td><a class="store" href="https://appmagic.rocks/google-play/toon-blast/net.peakgames.toonblast" target="_blank" rel="noopener">GP</a> · <a class="store" href="https://appmagic.rocks/iphone/toon-blast/1176027022" target="_blank" rel="noopener">iOS</a></td>
+            </tr>
+            <tr class="am-filled">
+              <td><strong>Royal Kingdom</strong></td>
+              <td class="am-val">$36,598,078</td>
+              <td class="am-val">$474,209,737</td>
+              <td class="am-val">10,263,957</td>
+              <td class="am-val">136,251,227</td>
+              <td class="am-val">$9.23</td>
+              <td class="am-val">$4.82</td>
+              <td class="am-val">$3.48</td>
+              <td><a class="store" href="https://appmagic.rocks/google-play/royal-kingdom/com.dreamgames.royalkingdom" target="_blank" rel="noopener">GP</a></td>
+            </tr>
+            <tr class="am-filled">
+              <td><strong>Travel Town</strong></td>
+              <td class="am-val">$15,945,087</td>
+              <td class="am-val">$616,358,730</td>
+              <td class="am-val">2,448,372</td>
+              <td class="am-val">94,818,689</td>
+              <td class="am-val">$10.37</td>
+              <td class="am-val">$14.70</td>
+              <td class="am-val">$6.50</td>
+              <td><a class="store" href="https://appmagic.rocks/google-play/travel-town-merge-adventure/io.randomco.travel" target="_blank" rel="noopener">GP</a> · <a class="store" href="https://appmagic.rocks/iphone/travel-town-merge-adventure/1521236603" target="_blank" rel="noopener">iOS</a></td>
+            </tr>
+            <tr class="am-filled">
+              <td><strong>Match Factory!</strong></td>
+              <td class="am-val">$15,149,373</td>
+              <td class="am-val">$449,556,958</td>
+              <td class="am-val">1,225,498</td>
+              <td class="am-val">58,355,456</td>
+              <td class="am-val">$13.00</td>
+              <td class="am-val">$6.29</td>
+              <td class="am-val">$7.70</td>
+              <td><a class="store" href="https://appmagic.rocks/iphone/match-factory-/6449094229" target="_blank" rel="noopener">iOS</a></td>
+            </tr>
+            <tr class="am-filled">
+              <td><strong>Candy Crush Soda Saga</strong></td>
+              <td class="am-val">$12,838,983</td>
+              <td class="am-val">$2,961,484,302</td>
+              <td class="am-val">1,517,681</td>
+              <td class="am-val">577,678,801</td>
+              <td class="am-val">$18.44</td>
+              <td class="am-val">$7.48</td>
+              <td class="am-val">$5.13</td>
+              <td><a class="store" href="https://appmagic.rocks/google-play/candy-crush-soda-saga/com.king.candycrushsodasaga" target="_blank" rel="noopener">GP</a></td>
+            </tr>
+            <tr class="am-filled">
+              <td><strong>Toy Blast</strong></td>
+              <td class="am-val">$5,592,127</td>
+              <td class="am-val">$1,183,575,031</td>
+              <td class="am-val">421,772</td>
+              <td class="am-val">153,260,748</td>
+              <td class="am-val">$14.87</td>
+              <td class="am-val">$11.03</td>
+              <td class="am-val">$7.72</td>
+              <td><a class="store" href="https://appmagic.rocks/iphone/toy-blast/890378044" target="_blank" rel="noopener">iOS</a> · <a class="store" href="https://appmagic.rocks/google-play/toy-blast/net.peakgames.toyblast" target="_blank" rel="noopener">GP</a></td>
+            </tr>
+            <tr class="am-filled">
+              <td><strong>Match Masters</strong></td>
+              <td class="am-val">$3,919,816</td>
+              <td class="am-val">$447,968,867</td>
+              <td class="am-val">482,832</td>
+              <td class="am-val">79,545,958</td>
+              <td class="am-val">$9.87</td>
+              <td class="am-val">$5.19</td>
+              <td class="am-val">$5.63</td>
+              <td><a class="store" href="https://appmagic.rocks/google-play/match-masters/com.funtomic.matchmasters" target="_blank" rel="noopener">GP</a></td>
+            </tr>
+            <tr class="am-filled">
+              <td><strong>Seeker's Notes</strong></td>
+              <td class="am-val">$2,431,686</td>
+              <td class="am-val">$363,786,418</td>
+              <td class="am-val">143,563</td>
+              <td class="am-val">40,073,980</td>
+              <td class="am-val">$15.46</td>
+              <td class="am-val">$5.37</td>
+              <td class="am-val">$9.08</td>
+              <td><a class="store" href="https://appmagic.rocks/google-play/seekers-notes-hidden-objects/com.mytona.seekersnotes.android" target="_blank" rel="noopener">GP</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        <strong>Методология:</strong> 30d и lifetime revenue/downloads — All Stores, таблица издателя (net IAP).
+        RpD — all time с карточки GP/iOS. Строки после Merge Gardens — тайтлы из полного списка (по масштабу), которых не было в таблице схожести.
+        <strong>Travel Town</strong> в AppMagic привязан к Moon Active (издатель Magmatic на сторе).
+        <strong>Travel Crush</strong> lifetime — сумма iOS + GP у BebopBee (~$444k / 167k DL); RpD нет.
+        <strong>Mystery Match Village</strong> — нет 30d (last seen ~10.2025).
+        <strong>Travel Match / Travel Crush</strong> — 30d на GP занижен из‑за слабого Android.
+        Издатели:
+        <a href="https://appmagic.rocks/publisher/playrix/2_1162116447?downloadsPeriod=lifetime&amp;revenuePeriod=lifetime" target="_blank" rel="noopener">Playrix</a>,
+        <a href="https://appmagic.rocks/publisher/dream-games/2_1482155846?downloadsPeriod=lifetime&amp;revenuePeriod=lifetime" target="_blank" rel="noopener">Dream Games</a>,
+        <a href="https://appmagic.rocks/publisher/king/2_526656015?downloadsPeriod=lifetime&amp;revenuePeriod=lifetime" target="_blank" rel="noopener">King</a>,
+        <a href="https://appmagic.rocks/publisher/take-two-interactive/2_476160947?downloadsPeriod=lifetime&amp;revenuePeriod=lifetime" target="_blank" rel="noopener">Take-Two (Peak)</a>.
+      </p>
+    </section>
+
+    <section id="adintel-source-share">
+      <h2>AppMagic Ad Intelligence — доли источников трафика (90d)</h2>
+      <p class="lead">Блочный формат под диктовку: в строке игра, справа сумма показов, дальше в столбцах — рекламные сети. В ячейке: сверху показы, снизу процент.</p>
+      <h3>Android</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Игра</th>
+              <th>Всего показов</th>
+              <th>Applovin</th>
+              <th>Google AdMob</th>
+              <th>Meta</th>
+              <th>Adikteev</th>
+              <th>Remerge</th>
+              <th>Moloco</th>
+              <th>Unity</th>
+              <th>YouTube</th>
+              <th>Liftoff</th>
+              <th>Mintegral</th>
+              <th>Mobvista</th>
+              <th>IronSource</th>
+              <th>TikTok</th>
+              <th>Opera Ads</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=2_1482155847&platform=android" target="_blank" rel="noopener">Royal Match</a></td>
+              <td>463M</td>
+              <td>279M<br>60%</td>
+              <td>11M<br>&lt;2%</td>
+              <td>39M<br>8%</td>
+              <td>—</td>
+              <td>115M<br>24%</td>
+              <td>10M<br>&lt;2%</td>
+              <td>8.7M<br>&lt;2%</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=2_553834731&platform=android" target="_blank" rel="noopener">Candy Crush Saga</a></td>
+              <td>1137M</td>
+              <td>381M<br>32%</td>
+              <td>313M<br>27%</td>
+              <td>198M<br>17%</td>
+              <td>133M<br>11%</td>
+              <td>9.5M<br>1%</td>
+              <td>16M<br>1%</td>
+              <td>—</td>
+              <td>67M<br>6%</td>
+              <td>19M<br>2%</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_com.playrix.gardenscapes&platform=android" target="_blank" rel="noopener">Gardenscapes</a></td>
+              <td>125M</td>
+              <td>2.5M<br>2%</td>
+              <td>36M<br>29%</td>
+              <td>16.5M<br>13%</td>
+              <td>—</td>
+              <td>41M<br>32%</td>
+              <td>422K<br>&lt;1%</td>
+              <td>25M<br>20%</td>
+              <td>850K<br>&lt;1%</td>
+              <td>—</td>
+              <td>2M<br>1%</td>
+              <td>1M<br>1%</td>
+              <td>—</td>
+              <td>27<br>&lt;1%</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=2_1176027022&platform=android" target="_blank" rel="noopener">Toon Blast</a></td>
+              <td>122M</td>
+              <td>32M<br>26%</td>
+              <td>4.5M<br>4%</td>
+              <td>10.5M<br>9%</td>
+              <td>31M<br>25%</td>
+              <td>3M<br>2%</td>
+              <td>3.8M<br>3%</td>
+              <td>32M<br>26%</td>
+              <td>880K<br>&lt;1%</td>
+              <td>500K<br>&lt;1%</td>
+              <td>2.3M<br>2%</td>
+              <td>1.1M<br>&lt;1%</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=2_1195621598&platform=android" target="_blank" rel="noopener">Homescapes</a></td>
+              <td>279M</td>
+              <td>5.8M<br>2%</td>
+              <td>1.3M<br>1%</td>
+              <td>14.5M<br>5%</td>
+              <td>—</td>
+              <td>56M<br>20%</td>
+              <td>31M<br>11%</td>
+              <td>17M<br>6%</td>
+              <td>160K<br>1%</td>
+              <td>—</td>
+              <td>115M<br>41%</td>
+              <td>38M<br>14%</td>
+              <td>—</td>
+              <td>27K<br>1%</td>
+              <td>30K<br>&lt;1%</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_com.playrix.fishdomdd.gplay&platform=android" target="_blank" rel="noopener">Fishdom</a></td>
+              <td>13M</td>
+              <td>104.4K<br>1%</td>
+              <td>100K<br>1%</td>
+              <td>9.5M<br>72%</td>
+              <td>—</td>
+              <td>3.2M<br>24%</td>
+              <td>—</td>
+              <td>117K<br>1%</td>
+              <td>20K<br>1%</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>3K<br>1%</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_com.dreamgames.royalkingdom&platform=android" target="_blank" rel="noopener">Royal Kingdom</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=2_1521236603&platform=android" target="_blank" rel="noopener">Travel Town</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=2_6449094229&platform=android" target="_blank" rel="noopener">Match Factory!</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_com.king.candycrushsodasaga&platform=android" target="_blank" rel="noopener">Candy Crush Soda Saga</a></td>
+              <td>829M</td>
+              <td>1.1M<br>1%</td>
+              <td>705M<br>85%</td>
+              <td>13M<br>2%</td>
+              <td>101M<br>12%</td>
+              <td>—</td>
+              <td>900K<br>1%</td>
+              <td>—</td>
+              <td>3.3M<br>1%</td>
+              <td>2.9M<br>1%</td>
+              <td>650K<br>1%</td>
+              <td>1.6M<br>1%</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_com.bgg.jump&platform=android" target="_blank" rel="noopener">Project Makeover</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=2_890378044&platform=android" target="_blank" rel="noopener">Toy Blast</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_com.matchington.mansion&platform=android" target="_blank" rel="noopener">Matchington Mansion</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_dk.tactile.lilysgarden&platform=android" target="_blank" rel="noopener">Lily's Garden</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_net.wooga.junes_journey_hidden_object_mystery_game&platform=android" target="_blank" rel="noopener">June's Journey</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_com.playrix.manormatters&platform=android" target="_blank" rel="noopener">Manor Matters</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_com.funtomic.matchmasters&platform=android" target="_blank" rel="noopener">Match Masters</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_com.belkatechnologies.clockmaker&platform=android" target="_blank" rel="noopener">Clockmaker</a></td>
+              <td>11M</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>6.5M<br>54%</td>
+              <td>—</td>
+              <td>—</td>
+              <td>1.5M<br>1%</td>
+              <td>—</td>
+              <td>—</td>
+              <td>2.8M<br>23%</td>
+              <td>—</td>
+              <td>—</td>
+              <td>1M<br>1%</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_com.wooga.pearlsperil&platform=android" target="_blank" rel="noopener">Pearl's Peril</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_net.wooga.tropicats_tropical_cats_puzzle_paradise&platform=android" target="_blank" rel="noopener">Tropicats</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_com.mounthorse.travelmatch&platform=android" target="_blank" rel="noopener">Travel Match</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_com.bebopbee.match3.travelcrush&platform=android" target="_blank" rel="noopener">Travel Crush</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_com.outplayentertainment.mmv&platform=android" target="_blank" rel="noopener">Mystery Match Village</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_com.mytona.seekersnotes.android&platform=android" target="_blank" rel="noopener">Seeker's Notes</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_com.futureplay.mergematch&platform=android" target="_blank" rel="noopener">Merge Gardens</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?platform=android" target="_blank" rel="noopener">Cradle of Empires</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?platform=android" target="_blank" rel="noopener">Jewels of Rome</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?platform=android" target="_blank" rel="noopener">Jewels of Egypt</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?platform=android" target="_blank" rel="noopener">Secrets of Atlantis</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>iOS</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Игра</th>
+              <th>Всего показов</th>
+              <th>Applovin</th>
+              <th>Google AdMob</th>
+              <th>Meta</th>
+              <th>Adikteev</th>
+              <th>Remerge</th>
+              <th>Moloco</th>
+              <th>Unity</th>
+              <th>YouTube</th>
+              <th>Liftoff</th>
+              <th>Mintegral</th>
+              <th>Mobvista</th>
+              <th>IronSource</th>
+              <th>TikTok</th>
+              <th>Opera Ads</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=2_1482155847&platform=ios" target="_blank" rel="noopener">Royal Match</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=2_553834731&platform=ios" target="_blank" rel="noopener">Candy Crush Saga</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_com.playrix.gardenscapes&platform=ios" target="_blank" rel="noopener">Gardenscapes</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=2_1176027022&platform=ios" target="_blank" rel="noopener">Toon Blast</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=2_1195621598&platform=ios" target="_blank" rel="noopener">Homescapes</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_com.playrix.fishdomdd.gplay&platform=ios" target="_blank" rel="noopener">Fishdom</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_com.dreamgames.royalkingdom&platform=ios" target="_blank" rel="noopener">Royal Kingdom</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=2_1521236603&platform=ios" target="_blank" rel="noopener">Travel Town</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=2_6449094229&platform=ios" target="_blank" rel="noopener">Match Factory!</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_com.king.candycrushsodasaga&platform=ios" target="_blank" rel="noopener">Candy Crush Soda Saga</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_com.bgg.jump&platform=ios" target="_blank" rel="noopener">Project Makeover</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=2_890378044&platform=ios" target="_blank" rel="noopener">Toy Blast</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_com.matchington.mansion&platform=ios" target="_blank" rel="noopener">Matchington Mansion</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_dk.tactile.lilysgarden&platform=ios" target="_blank" rel="noopener">Lily's Garden</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_net.wooga.junes_journey_hidden_object_mystery_game&platform=ios" target="_blank" rel="noopener">June's Journey</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_com.playrix.manormatters&platform=ios" target="_blank" rel="noopener">Manor Matters</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_com.funtomic.matchmasters&platform=ios" target="_blank" rel="noopener">Match Masters</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_com.belkatechnologies.clockmaker&platform=ios" target="_blank" rel="noopener">Clockmaker</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_com.wooga.pearlsperil&platform=ios" target="_blank" rel="noopener">Pearl's Peril</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_net.wooga.tropicats_tropical_cats_puzzle_paradise&platform=ios" target="_blank" rel="noopener">Tropicats</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_com.mounthorse.travelmatch&platform=ios" target="_blank" rel="noopener">Travel Match</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_com.bebopbee.match3.travelcrush&platform=ios" target="_blank" rel="noopener">Travel Crush</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_com.outplayentertainment.mmv&platform=ios" target="_blank" rel="noopener">Mystery Match Village</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_com.mytona.seekersnotes.android&platform=ios" target="_blank" rel="noopener">Seeker's Notes</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_com.futureplay.mergematch&platform=ios" target="_blank" rel="noopener">Merge Gardens</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?platform=ios" target="_blank" rel="noopener">Cradle of Empires</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?platform=ios" target="_blank" rel="noopener">Jewels of Rome</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?platform=ios" target="_blank" rel="noopener">Jewels of Egypt</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><a class="store" href="https://appmagic.rocks/ad-intelligence?platform=ios" target="_blank" rel="noopener">Secrets of Atlantis</a></td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        Формат обновлён: добавлена колонка суммы показов и отдельный столбец Mobvista. Продолжаем заполнять по твоей диктовке.
+      </p>
+    </section>
+
+    <section id="ranked">
+      <h2>Полный список конкурентов (по масштабу)</h2>
+      <p class="lead">29 тайтлов match-3 / смежных жанров. Сортировка: выручка → инсталлы → оценки (публичные оценки).</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Игра</th>
+              <th>Издатель</th>
+              <th>Масштаб (публично)</th>
+              <th>Близость к GD</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Royal Match</td><td>Dream Games</td><td>~$1.37B rev (2025), 300M+ installs</td><td>Meta decor, не travel</td></tr>
+            <tr><td>2</td><td>Candy Crush Saga</td><td>King</td><td>~$1.01B rev, 1B+ GP installs</td><td>Чистый match-3</td></tr>
+            <tr><td>3</td><td>Gardenscapes</td><td>Playrix</td><td>~$396M rev, 500M+ installs</td><td>Match-3 + restore</td></tr>
+            <tr><td>4</td><td>Toon Blast</td><td>Peak</td><td>~$296M rev, 100M+ installs</td><td>Blast, travel в сюжете</td></tr>
+            <tr><td>5</td><td>Homescapes</td><td>Playrix</td><td>AppMagic: $25.1M rev/30d · $3.70B lifetime · 1.91M DL/30d · 650.5M DL · RpD $5.69</td><td>Match-3 + home build</td></tr>
+            <tr><td>6</td><td>Fishdom</td><td>Playrix</td><td>~$254M rev, 100M+ installs</td><td>Match-3 + aquarium</td></tr>
+            <tr><td>7</td><td>Royal Kingdom</td><td>Dream Games</td><td>~$246M rev (оценки)</td><td>Royal Match sequel</td></tr>
+            <tr><td>8</td><td>Travel Town</td><td>Magmatic</td><td>~$209M rev, 10M+ installs</td><td>Merge + travel (adjacent)</td></tr>
+            <tr><td>9</td><td>Match Factory!</td><td>Peak</td><td>~$186M rev, 10M+ installs</td><td>Triple-match (adjacent)</td></tr>
+            <tr><td>10</td><td>Candy Crush Soda Saga</td><td>King</td><td>500M+ installs</td><td>Match-3 franchise</td></tr>
+            <tr><td>11</td><td>Project Makeover</td><td>Magic Tavern</td><td>100M+ installs</td><td>Match-3 + makeover</td></tr>
+            <tr><td>12</td><td>Toy Blast</td><td>Peak</td><td>100M+ installs</td><td>Blast puzzle</td></tr>
+            <tr><td>13</td><td>Matchington Mansion</td><td>Magic Tavern</td><td>100M+ installs</td><td>Match-3 + mansion</td></tr>
+            <tr><td>14</td><td>Lily's Garden</td><td>Tactile</td><td>50M+ installs</td><td>Match + garden restore</td></tr>
+            <tr><td>15</td><td>June's Journey</td><td>Wooga</td><td>50M+ installs</td><td>HO + travel story</td></tr>
+            <tr><td>16</td><td>Manor Matters</td><td>Playrix</td><td>~58M combined installs</td><td>HO + match events</td></tr>
+            <tr><td>17</td><td>Match Masters</td><td>Candivore</td><td>~70M installs</td><td>PvP match-3</td></tr>
+            <tr><td>18</td><td>Clockmaker</td><td>Belka</td><td>~40M+ installs</td><td>Match-3 + city restore</td></tr>
+            <tr><td>19</td><td>Pearl's Peril</td><td>Wooga</td><td>~56M lifetime DL</td><td>HO + island build</td></tr>
+            <tr><td>20</td><td>Tropicats</td><td>Wooga</td><td>1M+ installs</td><td>Match-3 + island build</td></tr>
+            <tr><td>21</td><td>Travel Match</td><td>Mount Horse</td><td>Нишевый рост</td><td><strong>Travel match-3</strong></td></tr>
+            <tr><td>22</td><td>Travel Crush</td><td>BebopBee</td><td>Новый тайтл</td><td><strong>Travel match-3</strong></td></tr>
+            <tr><td>23</td><td>Mystery Match Village</td><td>Outplay</td><td>100k+ installs</td><td>Match + village restore</td></tr>
+            <tr><td>24</td><td>Seeker's Notes</td><td>Mytona</td><td>Long-running HO</td><td>Match side modes</td></tr>
+            <tr><td>25</td><td>Merge Gardens</td><td>Futureplay</td><td>Merge + restore</td><td>Adjacent genre</td></tr>
+            <tr><td>26</td><td>Cradle of Empires</td><td>Awem</td><td>Legacy title, strong citybuilder-match loop</td><td><strong>Очень близко к GD</strong></td></tr>
+            <tr><td>27</td><td>Jewels of Rome</td><td>G5</td><td>City restoration + match-3 core</td><td>CoE-like cluster</td></tr>
+            <tr><td>28</td><td>Jewels of Egypt</td><td>G5</td><td>Citybuilder meta + journey setting</td><td>CoE-like cluster</td></tr>
+            <tr><td>29</td><td>Secrets of Atlantis</td><td>Vizor</td><td>Travel/expedition flavored match-3</td><td>CoE-like cluster</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        Источники: Google Play (install tiers, descriptions), Business of Apps / Statista / AppBrain (оценки выручки и downloads).
+        Порядок в середине списка — рабочее приближение, не аудированные внутренние данные.
+      </p>
+    </section>
+
+    <section id="links">
+      <h2>Ссылки на сторы (бенчмарк-топ)</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Игра</th><th>Google Play</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Gummy Drop!</td><td><a class="store" href="https://play.google.com/store/apps/details?id=com.bigfishgames.gummydropgoogle">Открыть</a></td></tr>
+            <tr><td>Travel Match</td><td><a class="store" href="https://play.google.com/store/apps/details?id=com.mounthorse.travelmatch">Открыть</a></td></tr>
+            <tr><td>Travel Crush</td><td><a class="store" href="https://play.google.com/store/apps/details?id=com.bebopbee.match3.travelcrush">Открыть</a></td></tr>
+            <tr><td>Gardenscapes</td><td><a class="store" href="https://play.google.com/store/apps/details?id=com.playrix.gardenscapes">Открыть</a></td></tr>
+            <tr><td>Homescapes</td><td><a class="store" href="https://play.google.com/store/apps/details?id=com.playrix.homescapes">Открыть</a></td></tr>
+            <tr><td>Clockmaker</td><td><a class="store" href="https://play.google.com/store/apps/details?id=com.belkatechnologies.clockmaker">Открыть</a></td></tr>
+            <tr><td>Matchington Mansion</td><td><a class="store" href="https://play.google.com/store/apps/details?id=com.matchington.mansion">Открыть</a></td></tr>
+            <tr><td>Project Makeover</td><td><a class="store" href="https://play.google.com/store/apps/details?id=com.bgg.jump">Открыть</a></td></tr>
+            <tr><td>Tropicats</td><td><a class="store" href="https://play.google.com/store/apps/details?id=net.wooga.tropicats_tropical_cats_puzzle_paradise">Открыть</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer>
+      Game Forest · Gummy Drop! · конкурентный анализ · внутреннее использование
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      function parseImpressions(text) {
+        if (!text) return 0;
+        var normalized = String(text).replace(/ /g, ' ').replace(/,/g, '.');
+        var match = normalized.match(/(\d+(?:\.\d+)?)\s*([MBK])/i);
+        if (!match) return 0;
+        var value = parseFloat(match[1]);
+        var unit = match[2].toUpperCase();
+        if (unit === 'B') return value * 1e9;
+        if (unit === 'M') return value * 1e6;
+        if (unit === 'K') return value * 1e3;
+        return value;
+      }
+
+      function formatTotal(value) {
+        if (!value) return '—';
+        if (value >= 1e9) return Math.round(value / 1e9) + 'B';
+        if (value >= 1e6) return Math.round(value / 1e6) + 'M';
+        if (value >= 1e3) return Math.round(value / 1e3) + 'K';
+        return String(Math.round(value));
+      }
+
+      function cellMetric(cell, idx) {
+        if (idx === 0) return (cell.textContent || '').trim().toLowerCase();
+        return parseImpressions((cell.textContent || '').split('\\n')[0]);
+      }
+
+      function updateTotalsRow(table) {
+        var tbody = table.querySelector('tbody');
+        if (!tbody) return;
+        var rows = Array.from(tbody.querySelectorAll('tr')).filter(function (row) {
+          return !row.classList.contains('totals-row');
+        });
+        if (!rows.length) return;
+
+        var colCount = rows[0].children.length;
+        var totals = new Array(colCount).fill(0);
+
+        rows.forEach(function (row) {
+          for (var i = 1; i < colCount; i++) {
+            totals[i] += cellMetric(row.children[i], i);
+          }
+        });
+
+        var totalRow = tbody.querySelector('tr.totals-row');
+        if (!totalRow) {
+          totalRow = document.createElement('tr');
+          totalRow.className = 'totals-row';
+          totalRow.style.fontWeight = '700';
+          totalRow.style.background = 'rgba(86, 255, 170, 0.08)';
+          for (var j = 0; j < colCount; j++) totalRow.appendChild(document.createElement('td'));
+          tbody.insertBefore(totalRow, tbody.firstChild);
+        }
+
+        totalRow.children[0].textContent = 'Итого по источнику';
+        for (var k = 1; k < colCount; k++) {
+          totalRow.children[k].textContent = formatTotal(totals[k]);
+        }
+      }
+
+      function makeSortable(table) {
+        var tbody = table.querySelector('tbody');
+        var headers = Array.from(table.querySelectorAll('thead th'));
+        if (!tbody || !headers.length) return;
+
+        headers.forEach(function (th, index) {
+          th.style.cursor = 'pointer';
+          th.title = 'Сортировать';
+          th.addEventListener('click', function () {
+            var currentDir = th.dataset.sortDir === 'asc' ? 'asc' : 'desc';
+            var nextDir = currentDir === 'asc' ? 'desc' : 'asc';
+            headers.forEach(function (h) { delete h.dataset.sortDir; });
+            th.dataset.sortDir = nextDir;
+
+            var rows = Array.from(tbody.querySelectorAll('tr')).filter(function (row) {
+              return !row.classList.contains('totals-row');
+            });
+
+            rows.sort(function (a, b) {
+              var av = cellMetric(a.children[index], index);
+              var bv = cellMetric(b.children[index], index);
+              if (typeof av === 'string') {
+                return nextDir === 'asc' ? av.localeCompare(bv) : bv.localeCompare(av);
+              }
+              return nextDir === 'asc' ? av - bv : bv - av;
+            });
+
+            var anchor = tbody.querySelector('tr.totals-row');
+            rows.forEach(function (row) { tbody.appendChild(row); });
+            if (anchor) tbody.insertBefore(anchor, tbody.firstChild);
+          });
+        });
+      }
+
+      var section = document.getElementById('adintel-source-share');
+      if (!section) return;
+      var tables = section.querySelectorAll('table');
+      tables.forEach(function (table) {
+        updateTotalsRow(table);
+        makeSortable(table);
+      });
+    })();
+  </script>
+
+</body>
+</html>

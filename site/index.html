@@ -1,0 +1,877 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Рейтинг причин проблем с оплатой Meta Ads и пошаговая диагностика payment failed, card declined, billing disabled.">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Meta Ads: проблемы с оплатой">
+  <meta property="og:description" content="Причины payment failed и пошаговая инструкция: банк, Meta Billing, 3DS, лимиты, BIN, VCC, billing address.">
+  <meta property="og:type" content="website">
+  <title>Meta Ads: причины проблем с оплатой и что делать</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --paper: #ffffff;
+      --ink: #111827;
+      --muted: #607086;
+      --line: #dde5ef;
+      --accent: #1769e0;
+      --accent-dark: #0d3f8f;
+      --accent-soft: #e8f1ff;
+      --green: #127a54;
+      --green-soft: #e8f7f0;
+      --yellow: #936000;
+      --yellow-soft: #fff5d8;
+      --red: #b42318;
+      --red-soft: #ffebe8;
+      --purple: #6f35b7;
+      --purple-soft: #f1e9ff;
+      --radius: 20px;
+      --shadow: 0 18px 60px rgba(17, 24, 39, 0.10);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(23, 105, 224, 0.14), transparent 34rem),
+        radial-gradient(circle at 92% 8%, rgba(111, 53, 183, 0.10), transparent 26rem),
+        linear-gradient(180deg, #fbfcff 0%, var(--bg) 46%, #eef2f8 100%);
+      line-height: 1.55;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration-thickness: 0.08em;
+      text-underline-offset: 0.18em;
+    }
+
+    a:hover {
+      color: var(--accent-dark);
+    }
+
+    .page {
+      width: min(1160px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 32px 0 72px;
+    }
+
+    .hero {
+      display: grid;
+      gap: 28px;
+      align-items: center;
+      padding: 42px;
+      border: 1px solid rgba(255, 255, 255, 0.78);
+      border-radius: 32px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.78)),
+        radial-gradient(circle at top right, rgba(23, 105, 224, 0.15), transparent 26rem);
+      box-shadow: var(--shadow);
+    }
+
+    @media (min-width: 880px) {
+      .hero {
+        grid-template-columns: minmax(0, 1.35fr) minmax(330px, 0.65fr);
+      }
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border: 1px solid #cddcf4;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent-dark);
+      font-size: 0.86rem;
+      font-weight: 800;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      letter-spacing: -0.03em;
+      line-height: 1.08;
+    }
+
+    h1 {
+      max-width: 880px;
+      margin-top: 18px;
+      font-size: clamp(2.25rem, 6.4vw, 5rem);
+    }
+
+    h2 {
+      font-size: clamp(1.55rem, 4vw, 2.45rem);
+    }
+
+    h3 {
+      font-size: 1.05rem;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .lead {
+      max-width: 830px;
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: clamp(1.02rem, 2vw, 1.23rem);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 16px;
+      border: 1px solid var(--accent);
+      border-radius: 12px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 850;
+      text-decoration: none;
+    }
+
+    .button.secondary {
+      background: #fff;
+      color: var(--accent-dark);
+      border-color: #bfd1ee;
+    }
+
+    .hero-card {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+    }
+
+    .hero-card strong {
+      display: block;
+      font-size: 3.4rem;
+      letter-spacing: -0.07em;
+      line-height: 1;
+      color: var(--accent);
+    }
+
+    .hero-card span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-weight: 650;
+    }
+
+    .stats {
+      display: grid;
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .stat {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fbfcff;
+    }
+
+    .stat b {
+      display: block;
+      font-size: 1.45rem;
+      line-height: 1;
+    }
+
+    .stat small {
+      display: block;
+      margin-top: 7px;
+      color: var(--muted);
+    }
+
+    .section {
+      margin-top: 56px;
+    }
+
+    .section-head {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .section-head p {
+      max-width: 840px;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    .rank-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .rank-card {
+      display: grid;
+      gap: 16px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 8px 30px rgba(17, 24, 39, 0.05);
+    }
+
+    @media (min-width: 800px) {
+      .rank-card {
+        grid-template-columns: 64px minmax(0, 1fr) 210px;
+        align-items: center;
+      }
+    }
+
+    .rank-number {
+      display: grid;
+      width: 52px;
+      height: 52px;
+      place-items: center;
+      border-radius: 16px;
+      background: var(--accent-soft);
+      color: var(--accent-dark);
+      font-size: 1.2rem;
+      font-weight: 900;
+    }
+
+    .rank-main p {
+      margin-top: 8px;
+      color: var(--muted);
+    }
+
+    .metric {
+      display: grid;
+      gap: 9px;
+    }
+
+    .metric-line {
+      height: 10px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #e6ebf3;
+    }
+
+    .metric-fill {
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--accent), #63a0ff);
+    }
+
+    .metric strong {
+      font-size: 1.08rem;
+      line-height: 1;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    @media (min-width: 860px) {
+      .grid.two {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .grid.three {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .panel {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+    }
+
+    .panel p,
+    .panel ul,
+    .panel ol {
+      margin-top: 10px;
+      color: var(--muted);
+    }
+
+    .panel ul,
+    .panel ol {
+      padding-left: 1.2rem;
+    }
+
+    .panel li + li {
+      margin-top: 8px;
+    }
+
+    .callout {
+      padding: 24px;
+      border: 1px solid #c9d9f3;
+      border-radius: var(--radius);
+      background: var(--accent-soft);
+    }
+
+    .callout p {
+      margin-top: 10px;
+      color: #29476f;
+      font-size: 1.04rem;
+    }
+
+    .tag {
+      display: inline-flex;
+      margin-bottom: 10px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 850;
+      line-height: 1;
+    }
+
+    .tag.red {
+      background: var(--red-soft);
+      color: var(--red);
+    }
+
+    .tag.yellow {
+      background: var(--yellow-soft);
+      color: var(--yellow);
+    }
+
+    .tag.green {
+      background: var(--green-soft);
+      color: var(--green);
+    }
+
+    .tag.purple {
+      background: var(--purple-soft);
+      color: var(--purple);
+    }
+
+    .steps {
+      display: grid;
+      gap: 14px;
+      counter-reset: steps;
+    }
+
+    .step {
+      position: relative;
+      padding: 20px 20px 20px 76px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+    }
+
+    .step::before {
+      counter-increment: steps;
+      content: counter(steps);
+      position: absolute;
+      left: 18px;
+      top: 18px;
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border-radius: 12px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 900;
+    }
+
+    .step p {
+      margin-top: 8px;
+      color: var(--muted);
+    }
+
+    .split {
+      display: grid;
+      gap: 16px;
+      margin-top: 14px;
+    }
+
+    @media (min-width: 760px) {
+      .split {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .mini {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fbfcff;
+    }
+
+    .mini b {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .mini span {
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .sources {
+      display: grid;
+      gap: 10px;
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .sources li {
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+    }
+
+    footer {
+      margin-top: 58px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        width: min(100% - 22px, 1160px);
+        padding-top: 14px;
+      }
+
+      .hero {
+        padding: 24px;
+        border-radius: 24px;
+      }
+
+      .hero-card strong {
+        font-size: 3rem;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .step {
+        padding-left: 20px;
+        padding-top: 70px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero" aria-labelledby="page-title">
+      <div>
+        <div class="eyebrow"><span class="dot" aria-hidden="true"></span>Публичные кейсы, форумы и Help Center</div>
+        <h1 id="page-title">Meta Ads: почему ломается оплата и что делать</h1>
+        <p class="lead">
+          Рейтинг причин <strong>payment failed</strong>, <strong>card declined</strong>,
+          <strong>billing disabled</strong>, <strong>risk payment</strong> и похожих ошибок.
+          В базе — публичные кейсы из Meta Community, Developer Community, BlackHatWorld,
+          AffiliateFix, FB-Killa, AdWiseCircle, Reddit-цитат, Help Center и разборов платежных сервисов.
+        </p>
+        <div class="hero-actions">
+          <a class="button" href="#diagnostics">Пошаговая диагностика</a>
+          <a class="button secondary" href="#ranking">Причины по частоте</a>
+        </div>
+      </div>
+
+      <aside class="hero-card" aria-label="Размер базы">
+        <strong>200+</strong>
+        <span>публичных кейсов, сообщений и разборов, сгруппированных по повторяющимся payment-паттернам</span>
+        <div class="stats">
+          <div class="stat">
+            <b>40+</b>
+            <small>тредов, статей и Help Center материалов</small>
+          </div>
+          <div class="stat">
+            <b>10</b>
+            <small>основных причин, отсортированных по частоте повторения</small>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section" id="ranking" aria-labelledby="ranking-title">
+      <div class="section-head">
+        <h2 id="ranking-title">Причины по убыванию частоты</h2>
+        <p>
+          Частота ниже — не официальная статистика Meta, а агрегированная картина из публичных обсуждений.
+          В арбитражных тредах чаще всплывают VCC/BIN/IP/GEO и “risk payment”; в официальных материалах Meta
+          чаще описаны банк, лимиты, billing address, 3DS и unsupported payment method.
+        </p>
+      </div>
+
+      <div class="rank-list">
+        <article class="rank-card">
+          <div class="rank-number">1</div>
+          <div class="rank-main">
+            <h3>Банк, эмитент или card network отклоняет платеж</h3>
+            <p>Антифрод, международные платежи, online/recurring payments, 3DS/OTP, MCC/merchant restrictions, silent decline без понятного сообщения в Meta.</p>
+          </div>
+          <div class="metric">
+            <strong>Очень часто</strong>
+            <div class="metric-line"><div class="metric-fill" style="width: 92%;"></div></div>
+            <span>главный паттерн в Help Center и форумах</span>
+          </div>
+        </article>
+
+        <article class="rank-card">
+          <div class="rank-number">2</div>
+          <div class="rank-main">
+            <h3>Risk-система Meta блокирует payment method или ad account</h3>
+            <p>Payment hold, billing disabled, payments restricted, risk payment, repeated failed attempts, chargeback/dispute, подозрительные изменения карты/админов/IP.</p>
+          </div>
+          <div class="metric">
+            <strong>Очень часто</strong>
+            <div class="metric-line"><div class="metric-fill" style="width: 88%;"></div></div>
+            <span>особенно в BlackHatWorld, FB-Killa, AdWiseCircle</span>
+          </div>
+        </article>
+
+        <article class="rank-card">
+          <div class="rank-number">3</div>
+          <div class="rank-main">
+            <h3>Billing details не совпадают с данными банка или Business Manager</h3>
+            <p>Billing address, ZIP/postal code, имя держателя, страна, валюта, business details, CVV, срок действия или обновленная карта после перевыпуска.</p>
+          </div>
+          <div class="metric">
+            <strong>Очень часто</strong>
+            <div class="metric-line"><div class="metric-fill" style="width: 82%;"></div></div>
+            <span>частая причина “card verification failed”</span>
+          </div>
+        </article>
+
+        <article class="rank-card">
+          <div class="rank-number">4</div>
+          <div class="rank-main">
+            <h3>Недостаточно доступного лимита, а не обязательно денег</h3>
+            <p>Карта может иметь баланс, но не проходить из-за credit limit, daily limit, single-transaction limit, low billing threshold, pending hold или лимита на рекламу.</p>
+          </div>
+          <div class="metric">
+            <strong>Часто</strong>
+            <div class="metric-line"><div class="metric-fill" style="width: 76%;"></div></div>
+            <span>часто маскируется под “insufficient funds”</span>
+          </div>
+        </article>
+
+        <article class="rank-card">
+          <div class="rank-number">5</div>
+          <div class="rank-main">
+            <h3>Проблемный BIN, VCC, prepaid или “слишком арбитражная” карта</h3>
+            <p>Сатурированные BIN, virtual/prepaid cards, карты без нормального 3DS, карты, уже использованные на множестве аккаунтов, provider с плохой репутацией у Meta.</p>
+          </div>
+          <div class="metric">
+            <strong>Часто</strong>
+            <div class="metric-line"><div class="metric-fill" style="width: 72%;"></div></div>
+            <span>особенно у media buyers и арбитражников</span>
+          </div>
+        </article>
+
+        <article class="rank-card">
+          <div class="rank-number">6</div>
+          <div class="rank-main">
+            <h3>GEO/IP/device mismatch и нестабильный сетап</h3>
+            <p>Карта одной страны, Business Manager другой, логин с VPN/публичного Wi-Fi/нового устройства, админ из риск-региона, резкая смена браузера или профиля.</p>
+          </div>
+          <div class="metric">
+            <strong>Часто</strong>
+            <div class="metric-line"><div class="metric-fill" style="width: 66%;"></div></div>
+            <span>почти не описано Meta, но часто в арбитражных тредах</span>
+          </div>
+        </article>
+
+        <article class="rank-card">
+          <div class="rank-number">7</div>
+          <div class="rank-main">
+            <h3>Метод оплаты не поддерживается для страны, валюты или billing model</h3>
+            <p>Local methods доступны только для available funds, direct debit работает не везде, AmEx/India и другие локальные ограничения, prepaid vs automatic billing.</p>
+          </div>
+          <div class="metric">
+            <strong>Средне</strong>
+            <div class="metric-line"><div class="metric-fill" style="width: 48%;"></div></div>
+            <span>часто выглядит как generic error</span>
+          </div>
+        </article>
+
+        <article class="rank-card">
+          <div class="rank-number">8</div>
+          <div class="rank-main">
+            <h3>Технический сбой Meta, payment gateway или интерфейса</h3>
+            <p>Банк не видит попытку списания, Pay Now не работает, browser/cache/ad blocker ломает flow, support вручную может провести тот же платеж.</p>
+          </div>
+          <div class="metric">
+            <strong>Средне</strong>
+            <div class="metric-line"><div class="metric-fill" style="width: 42%;"></div></div>
+            <span>обычно проверяется после банка и billing details</span>
+          </div>
+        </article>
+
+        <article class="rank-card">
+          <div class="rank-number">9</div>
+          <div class="rank-main">
+            <h3>Prepaid / available funds / current balance работают не так, как ожидается</h3>
+            <p>Деньги добавлены, но Meta списывает current balance; available funds не используются; auto reload не настроен; пополнение приходит с задержкой.</p>
+          </div>
+          <div class="metric">
+            <strong>Ниже среднего</strong>
+            <div class="metric-line"><div class="metric-fill" style="width: 28%;"></div></div>
+            <span>чаще в отдельных странах и manual billing</span>
+          </div>
+        </article>
+
+        <article class="rank-card">
+          <div class="rank-number">10</div>
+          <div class="rank-main">
+            <h3>Invoice/direct debit/credit line, tax/VAT/GST и business verification</h3>
+            <p>High-spend аккаунты переводят с карт на invoice/direct debit; credit line достигнут; GST/VAT/business details не проходят; нужна верификация юрлица.</p>
+          </div>
+          <div class="metric">
+            <strong>Реже</strong>
+            <div class="metric-line"><div class="metric-fill" style="width: 22%;"></div></div>
+            <span>важно для агентств и high-spend BM</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="card-type" aria-labelledby="card-type-title">
+      <div class="section-head">
+        <h2 id="card-type-title">Кредитная или дебетовая карта: есть ли разница?</h2>
+        <p>
+          Да, тип карты имеет значение. Для Meta важен не только баланс, а доступный лимит, доверие к банку/BIN,
+          поддержка 3DS, recurring payments и то, насколько карта выглядит стабильной для рекламных списаний.
+        </p>
+      </div>
+
+      <div class="grid three">
+        <article class="panel">
+          <span class="tag green">Лучше</span>
+          <h3>Кредитная карта</h3>
+          <p>
+            Обычно стабильнее для Meta Ads: есть отдельный кредитный лимит, выше шанс пройти threshold charge,
+            меньше зависимость от текущего остатка на счете. Особенно хорошо работает банковская или корпоративная
+            кредитка с нормальным 3DS и разрешенными international / online / recurring payments.
+          </p>
+        </article>
+
+        <article class="panel">
+          <span class="tag yellow">Нормально, но проверить</span>
+          <h3>Дебетовая карта</h3>
+          <p>
+            Может работать, но чаще упирается в фактический available balance, дневной лимит, лимит на одну
+            онлайн-транзакцию, запрет recurring/international payments или pending holds. В банке нужно отдельно
+            проверить, что рекламные списания Meta разрешены.
+          </p>
+        </article>
+
+        <article class="panel">
+          <span class="tag red">Рискованнее</span>
+          <h3>VCC / prepaid</h3>
+          <p>
+            У media buyers такие карты популярны, но Meta чаще флагует saturated BIN, prepaid/VCC marker,
+            отсутствие стабильного 3DS, GEO mismatch и повторное использование карты на разных аккаунтах.
+            Использовать стоит только если понятны BIN, страна, 3DS и история провайдера.
+          </p>
+        </article>
+      </div>
+
+      <div class="callout" style="margin-top: 18px;">
+        <h3>Практический приоритет</h3>
+        <p>
+          Оптимальный порядок: корпоративная или обычная банковская кредитка → банковская дебетовая карта с
+          высокими лимитами и включенными online/international/recurring payments → PayPal/direct debit/monthly
+          invoice, если доступны → VCC/prepaid только для сетапов, где контролируются BIN, GEO и 3DS.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="diagnostics" aria-labelledby="diagnostics-title">
+      <div class="section-head">
+        <h2 id="diagnostics-title">Пошаговая диагностика: с чего начинать</h2>
+        <p>
+          Главный принцип: не менять сразу карту, страну, админа и браузер. Сначала понять,
+          где оборвалась цепочка — в банке, в Meta billing, в verification flow или на уровне account risk.
+        </p>
+      </div>
+
+      <div class="steps">
+        <article class="step">
+          <h3>Зафиксируй точную ошибку и контекст</h3>
+          <p>Сделай скриншоты Billing & Payments, Account Quality и письма от Meta. Важно записать текст: “payment failed”, “billing disabled”, “payment method not supported”, “couldn’t verify card”, “risk payment”, “unsettled balance”.</p>
+        </article>
+
+        <article class="step">
+          <h3>Проверь, есть ли outstanding balance</h3>
+          <p>В Meta Business Suite открой Billing & Payments → нужный ad account → Payment activity / Payment methods. Если есть сумма к оплате, не запускай новые кампании и не добавляй много карт подряд.</p>
+        </article>
+
+        <article class="step">
+          <h3>Самый важный вопрос: банк видит попытку списания или нет?</h3>
+          <p>Открой банк/провайдера карты и проверь последние declined/authorized transactions. Лучше написать или позвонить в банк с конкретным вопросом: “Вы видите попытку списания или pre-authorization от Meta/Facebook Ads на такую-то сумму?”</p>
+          <div class="split">
+            <div class="mini">
+              <b>Если банк видит declined</b>
+              <span>Причина почти наверняка в банке, лимитах, 3DS, MCC, international/online/recurring payments или billing address. Проси точный decline code и whitelisting Meta/Facebook Ads.</span>
+            </div>
+            <div class="mini">
+              <b>Если банк не видит попытку</b>
+              <span>Платеж мог быть остановлен до банка: Meta risk, unsupported method, BIN block, browser/UI bug, payment account hold. Тогда не надо спорить с банком — проверяй Meta и сетап.</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="step">
+          <h3>Сверь карту и billing details буквально по символам</h3>
+          <p>Проверь номер карты, срок действия, CVV, имя, billing address, ZIP/postal code, страну, валюту и business details. Для Meta “St” и “Street”, другой ZIP или старый адрес после перевыпуска карты могут быть разными данными.</p>
+        </article>
+
+        <article class="step">
+          <h3>Проверь лимиты и платежные разрешения</h3>
+          <p>Нужны не просто деньги на балансе. Проверь credit limit, daily online limit, limit per transaction, international payments, recurring payments, 3DS/OTP phone access, MCC/advertising merchant allowance и pending holds.</p>
+        </article>
+
+        <article class="step">
+          <h3>Сделай один чистый retry, а не серию попыток</h3>
+          <p>После исправления причины сделай одну попытку через Billing & Payments → Pay now. Если она снова падает, остановись: частые retries, добавление 3-5 карт подряд и “card hopping” часто усиливают payment hold.</p>
+        </article>
+
+        <article class="step">
+          <h3>Если карта проблемная — добавь другой тип метода оплаты</h3>
+          <p>Лучше использовать карту другого банка/сети или PayPal/direct debit, если доступно. Для арбитражных сетапов особенно проверь BIN, VCC/prepaid flag, 3DS, страну карты и то, не использовалась ли карта на других аккаунтах.</p>
+        </article>
+
+        <article class="step">
+          <h3>Если есть risk/payment restriction — иди через официальный review</h3>
+          <p>Проверь Account Quality и Business Support Home. Если Meta просит документы, выписку или подтверждение карты — загружай только через официальный flow внутри аккаунта. В тикете укажи ad account ID, сумму, дату, скрин банка и что банк видит/не видит.</p>
+        </article>
+
+        <article class="step">
+          <h3>Если банк не видит попытку и Meta не дает ясной причины</h3>
+          <p>Попробуй другой браузер/private window, отключи ad blocker для billing pages, проверь с другого устройства, но без резкой смены страны/IP. Если не помогло — открывай кейс в Meta Support как “billing/payment processing issue”.</p>
+        </article>
+
+        <article class="step">
+          <h3>После восстановления сделай профилактику</h3>
+          <p>Добавь backup payment method, настрой billing alerts, держи запас 20-30% выше текущего threshold, не масштабируй резко новый аккаунт, не меняй платежные данные без необходимости и регулярно проверяй срок действия карт.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="cases-title">
+      <div class="section-head">
+        <h2 id="cases-title">Что добавили из арбитражных и форумных кейсов</h2>
+        <p>В расширенной версии больше веса получили паттерны, которые редко прямо описаны в справке Meta, но постоянно повторяются у media buyers.</p>
+      </div>
+
+      <div class="grid three">
+        <article class="panel">
+          <span class="tag purple">Арбитраж</span>
+          <h3>VCC, BIN и prepaid</h3>
+          <p>BlackHatWorld, FB-Killa, AffiliateFix и affLIFT часто обсуждают, что virtual/prepaid cards, “burned BINs” и карты без стабильного 3DS чаще приводят к verification или risk payment.</p>
+        </article>
+
+        <article class="panel">
+          <span class="tag yellow">Сетап</span>
+          <h3>IP, GEO, устройство</h3>
+          <p>Много кейсов связано не с картой отдельно, а с несовпадением страны карты, Business Manager, IP, админов, браузерного профиля и истории аккаунта.</p>
+        </article>
+
+        <article class="panel">
+          <span class="tag red">Поведение</span>
+          <h3>Слишком много изменений</h3>
+          <p>Частые retries, добавление нескольких карт подряд, резкий запуск больших бюджетов на новом аккаунте и спорные chargebacks часто превращают обычный decline в account-level restriction.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="methodology" aria-labelledby="methodology-title">
+      <div class="callout">
+        <h2 id="methodology-title">Как читать эту страницу</h2>
+        <p>
+          Это практическая карта проблем, а не официальная статистика Meta. “Кейс” здесь — публичное сообщение,
+          комментарий, вопрос на форуме, разбор платежного провайдера или Help Center сценарий, где описана
+          конкретная причина или симптом оплаты. Повторяющиеся сообщения внутри крупных тредов сгруппированы
+          в один паттерн, чтобы не раздувать страницу.
+        </p>
+      </div>
+
+      <div class="grid two" style="margin-top: 18px;">
+        <article class="panel">
+          <h3>Основные группы источников</h3>
+          <ul>
+            <li>Meta Business Help Center, Meta Community Forums, Meta Developer Community.</li>
+            <li>BlackHatWorld, FB-Killa, AffiliateFix, affLIFT, AdWiseCircle и другие форумы media buyers.</li>
+            <li>Практические разборы агентств, payment/VCC providers и billing-support ресурсов.</li>
+            <li>Reddit-кейсы учитывались там, где они индексировались напрямую или цитировались в публичных тредах/разборах.</li>
+          </ul>
+        </article>
+
+        <article class="panel">
+          <h3>Главный вывод</h3>
+          <p>
+            Не начинай с замены аккаунта или хаотичного добавления карт. Сначала выясни, видит ли банк попытку списания.
+            Если видит — копай банк, лимиты, 3DS и billing details. Если не видит — копай Meta risk, BIN/VCC, unsupported method,
+            browser flow или account-level billing restriction.
+          </p>
+        </article>
+      </div>
+
+      <ul class="sources" aria-label="Ключевые источники">
+        <li><a href="https://www.facebook.com/business/help/268196136699959" rel="noopener noreferrer" target="_blank">Meta Business Help Center: Fix a failed payment issue on Meta</a></li>
+        <li><a href="https://www.facebook.com/business/help/2726198024366416" rel="noopener noreferrer" target="_blank">Meta Business Help Center: Best practices for preventing payment failures</a></li>
+        <li><a href="https://www.facebook.com/business/help/132073386867900" rel="noopener noreferrer" target="_blank">Meta Business Help Center: Add a payment method to a Meta ad account</a></li>
+        <li><a href="https://www.blackhatworld.com/seo/running-ads-always-encounters-card-verification-and-payment-errors-even-though-the-card-has-money-why.1717493/" rel="noopener noreferrer" target="_blank">BlackHatWorld: card verification and payment errors even with funds</a></li>
+        <li><a href="https://www.blackhatworld.com/seo/why-does-your-ad-account-get-disabled-right-after-adding-a-payment-method.1698874/" rel="noopener noreferrer" target="_blank">BlackHatWorld: disabled right after adding a payment method</a></li>
+        <li><a href="https://www.blackhatworld.com/seo/account-error-payment-not-accepted.1714518/" rel="noopener noreferrer" target="_blank">BlackHatWorld: account error, payment not accepted</a></li>
+        <li><a href="https://fb-killa.pro/threads/ad-account-disabled-from-payment-method.26024/" rel="noopener noreferrer" target="_blank">FB-Killa: ad account disabled from payment method</a></li>
+        <li><a href="https://www.affiliatefix.com/threads/seeking-help-with-card-hold-and-ad-spend-issues-on-facebook-ads.177883/" rel="noopener noreferrer" target="_blank">AffiliateFix: card hold and ad spend issues on Facebook Ads</a></li>
+        <li><a href="https://afflift.com/f/threads/anonymous-and-reloadable-virtual-cards-for-facebook-ads-vcc.7770/" rel="noopener noreferrer" target="_blank">affLIFT: virtual cards for Facebook Ads</a></li>
+        <li><a href="https://publicityport.com/awc/4982/anyone-there-account-disabled-because-they-couldnt-payment" rel="noopener noreferrer" target="_blank">AdWiseCircle: account disabled because payment cannot be made</a></li>
+        <li><a href="https://pay2.house/blogs/article/meta-is-acting-up-again-mass-payment-errors-and-real-cases-from-2025" rel="noopener noreferrer" target="_blank">Pay2.House: mass payment errors and real cases</a></li>
+        <li><a href="https://agrowth.io/blogs/facebook-ads/facebook-ads-payment-failure" rel="noopener noreferrer" target="_blank">AGrowth: Guide to Facebook Ads Payment Failure</a></li>
+      </ul>
+    </section>
+
+    <footer>
+      <p>
+        Страница подготовлена как публичный справочник по диагностике Meta Ads billing issues.
+        Она не является официальной документацией Meta и не содержит внутренних данных рекламных кабинетов.
+      </p>
+    </footer>
+  </main>
+</body>
+</html>
