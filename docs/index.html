@@ -208,6 +208,10 @@
       padding-left: 4px;
     }
 
+    .agent-only { display: none !important; }
+
+    #similarity .legend span { display: block; margin-bottom: 6px; }
+
     .note {
       font-size: 0.82rem;
       color: var(--gd-muted);
@@ -295,7 +299,7 @@
     <header class="hero">
       <h1>Gummy Drop! — конкуренты</h1>
       <p class="sub">
-        Жанр match-3 + travel + building: уровневый пазл, смена городов, восстановление локаций, live-ops.
+        Жанр match-3 + travel + building: уровневый пазл, смена городов, восстановление локаций, live-ops.<br><br>
         Таблица схожести — шкала 1–5 по пяти критериям: механика, путешествие, строительство, экономика, live-ops.
       </p>
       <div class="meta">
@@ -524,11 +528,10 @@
     <section id="stores-extended">
       <h2>Где игра доступна</h2>
       <p class="lead">
-        25 конкурентов из расширенного списка — в порядке таблицы схожести, где тайтл в ней есть.
-        Ссылки проверены по сайтам издателей и карточкам в сторах (июнь 2026).
+        14 конкурентов из таблицы схожести (№2–№15), в порядке схожести.<br>
         <strong>Короткая ссылка</strong> — канал подтверждён, <strong>—</strong> — не найден или не применим.
       </p>
-      <p class="note">Клик по заголовку <strong>Игра</strong> — порядок как в таблице схожести (№1 → №15). Клик по заголовку канала поднимает игры с подтверждённым каналом наверх; повторный клик по каналу возвращает порядок схожести.</p>
+      <p class="note agent-only">Клик по заголовку <strong>Игра</strong> — порядок как в таблице схожести (№1 → №15). Клик по заголовку канала поднимает игры с подтверждённым каналом наверх; повторный клик по каналу возвращает порядок схожести.</p>
       <div class="table-wrap">
         <table id="stores-matrix">
           <thead>
@@ -552,35 +555,25 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td><a class="store" href="https://www.dreamgames.com/games/royal-match" target="_blank" rel="noopener">Royal Match</a></td><td><a class="store" href="https://apps.apple.com/us/app/royal-match/id1482155847" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=com.dreamgames.royalmatch" target="_blank" rel="noopener">GP</a></td><td>—</td><td>—</td><td><a class="store" href="https://www.amazon.com/Dream-Games-Royal-Match/dp/B0BP83FJ64" target="_blank" rel="noopener">AMZ</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td><a class="store" href="https://apkpure.com/royal-match/com.dreamgames.royalmatch" target="_blank" rel="noopener">APK</a></td></tr>
-            <tr><td><a class="store" href="https://www.king.com/cs/game/candycrush/" target="_blank" rel="noopener">Candy Crush Saga</a></td><td><a class="store" href="https://apps.apple.com/us/app/candy-crush-saga/id553834731" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=com.king.candycrushsaga" target="_blank" rel="noopener">GP</a></td><td>—</td><td><a class="store" href="https://apps.microsoft.com/detail/9nblggh18846" target="_blank" rel="noopener">MS</a></td><td><a class="store" href="https://www.amazon.com/gp/product/B00FAPF5U0" target="_blank" rel="noopener">AMZ</a></td><td>—</td><td><a class="store" href="https://www.king.com/cs/game/candycrush/" target="_blank" rel="noopener">H5</a></td><td><a class="store" href="https://apps.facebook.com/candycrush" target="_blank" rel="noopener">FB</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td><a class="store" href="https://appgallery.huawei.com/#/app/C102001439" target="_blank" rel="noopener">HW</a></td><td>—</td><td>—</td></tr>
-            <tr><td><a class="store" href="https://playrix.com/games/gardenscapes" target="_blank" rel="noopener">Gardenscapes</a></td><td><a class="store" href="https://apps.apple.com/us/app/gardenscapes/id1105855019" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=com.playrix.gardenscapes" target="_blank" rel="noopener">GP</a></td><td><a class="store" href="https://play.google.com/pc-store/games/details?id=com.playrix.gardenscapes" target="_blank" rel="noopener">GPG</a></td><td><a class="store" href="https://apps.microsoft.com/search?query=Gardenscapes" target="_blank" rel="noopener">MS</a></td><td><a class="store" href="https://www.amazon.com/Playrix-Gardenscapes/dp/B01EJU5ZTC" target="_blank" rel="noopener">AMZ</a></td><td><a class="store" href="https://apps.apple.com/us/app/gardenscapes/id1193564816?mt=12" target="_blank" rel="noopener">MAS</a></td><td>—</td><td><a class="store" href="https://www.facebook.com/login/?next=https%3A%2F%2Fapps.facebook.com%2Fgardenscapes%2F#" target="_blank" rel="noopener">FB</a></td><td>—</td><td>—</td><td>—</td><td><a class="store" href="https://galaxystore.samsung.com/detail/com.playrix.gardenscapes.samsung" target="_blank" rel="noopener">GAL</a></td><td>—</td><td>—</td><td>—</td></tr>
-            <tr><td><a class="store" href="https://www.peak.com/toon-blast" target="_blank" rel="noopener">Toon Blast</a></td><td><a class="store" href="https://apps.apple.com/us/app/toon-blast/id1176027022" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=net.peakgames.toonblast" target="_blank" rel="noopener">GP</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td><a class="store" href="https://www.facebook.com/ToonBlast/" target="_blank" rel="noopener">FB</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-            <tr><td><a class="store" href="https://playrix.com/games/homescapes" target="_blank" rel="noopener">Homescapes</a></td><td><a class="store" href="https://apps.apple.com/us/app/homescapes-puzzle-design/id1195621598" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=com.playrix.homescapes" target="_blank" rel="noopener">GP</a></td><td><a class="store" href="https://play.google.com/pc-store/games/details?id=com.playrix.homescapes" target="_blank" rel="noopener">GPG</a></td><td><a class="store" href="https://apps.microsoft.com/search?query=Homescapes" target="_blank" rel="noopener">MS</a></td><td><a class="store" href="https://www.amazon.com/Playrix-Homescapes/dp/B0739V781Z" target="_blank" rel="noopener">AMZ</a></td><td><a class="store" href="https://apps.apple.com/us/app/homescapes-puzzle-design/id1195621598?mt=12" target="_blank" rel="noopener">MAS</a></td><td>—</td><td><a class="store" href="https://apps.facebook.com/homescapes/" target="_blank" rel="noopener">FB</a></td><td>—</td><td>—</td><td>—</td><td><a class="store" href="https://galaxystore.samsung.com/detail/com.playrix.homescapes.samsung" target="_blank" rel="noopener">GAL</a></td><td>—</td><td>—</td><td><a class="store" href="https://apkpure.com/homescapes-android/com.playrix.homescapes" target="_blank" rel="noopener">APK</a></td></tr>
-            <tr><td><a class="store" href="https://playrix.com/games/fishdom" target="_blank" rel="noopener">Fishdom</a></td><td><a class="store" href="https://apps.apple.com/us/app/fishdom/id664575829" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=com.playrix.fishdomdd.gplay" target="_blank" rel="noopener">GP</a></td><td><a class="store" href="https://play.google.com/pc-store/games/details?id=com.playrix.fishdomdd.gplay" target="_blank" rel="noopener">GPG</a></td><td><a class="store" href="https://apps.microsoft.com/search?query=Fishdom" target="_blank" rel="noopener">MS</a></td><td><a class="store" href="https://www.amazon.com/Playrix-Fishdom/dp/B01CBV2K8U" target="_blank" rel="noopener">AMZ</a></td><td>—</td><td>—</td><td><a class="store" href="https://www.facebook.com/Fishdom/" target="_blank" rel="noopener">FB</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-            <tr><td><a class="store" href="https://www.dreamgames.com/games/royal-kingdom" target="_blank" rel="noopener">Royal Kingdom</a></td><td><a class="store" href="https://apps.apple.com/us/app/royal-kingdom/id1606549505" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=com.dreamgames.royalkingdom" target="_blank" rel="noopener">GP</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-            <tr><td><a class="store" href="https://www.traveltowngame.com/" target="_blank" rel="noopener">Travel Town</a></td><td><a class="store" href="https://apps.apple.com/us/app/travel-town-merge-adventure/id1521236603" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=io.randomco.travel" target="_blank" rel="noopener">GP</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td><a class="store" href="https://www.facebook.com/TravelTownGame/" target="_blank" rel="noopener">FB</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-            <tr><td><a class="store" href="https://www.peak.com/match-factory" target="_blank" rel="noopener">Match Factory!</a></td><td><a class="store" href="https://apps.apple.com/us/app/match-factory/id6449094229" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/search?q=Match%20Factory&c=apps" target="_blank" rel="noopener">GP</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-            <tr><td><a class="store" href="https://www.king.com/cs/game/candycrushsoda/" target="_blank" rel="noopener">Candy Crush Soda Saga</a></td><td><a class="store" href="https://app.appsflyer.com/id850417475?pid=king-media&c=kingWeb" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://app.appsflyer.com/com.king.candycrushsodasaga?pid=king-media&c=kingWeb" target="_blank" rel="noopener">GP</a></td><td>—</td><td><a class="store" href="https://apps.microsoft.com/detail/9nblggh1zrpv" target="_blank" rel="noopener">MS</a></td><td><a class="store" href="https://app.appsflyer.com/com.king.candycrushsodasaga-Amazon?pid=king-media&c=kingWeb&af_r=https://www.amazon.com/gp/product/B00W6XM002" target="_blank" rel="noopener">AMZ</a></td><td>—</td><td><a class="store" href="https://www.king.com/cs/game/candycrushsoda/" target="_blank" rel="noopener">H5</a></td><td><a class="store" href="https://apps.facebook.com/candycrushsoda/" target="_blank" rel="noopener">FB</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-            <tr><td><a class="store" href="https://www.projectmakeover.com/" target="_blank" rel="noopener">Project Makeover</a></td><td><a class="store" href="https://apps.apple.com/us/app/project-makeover/id1483058899" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=com.bgg.jump" target="_blank" rel="noopener">GP</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-            <tr><td><a class="store" href="https://www.peak.com/toy-blast" target="_blank" rel="noopener">Toy Blast</a></td><td><a class="store" href="https://apps.apple.com/us/app/toy-blast/id890378044" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=net.peakgames.amy" target="_blank" rel="noopener">GP</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td><a class="store" href="https://www.facebook.com/ToyBlast/" target="_blank" rel="noopener">FB</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-            <tr><td><a class="store" href="https://www.matchingtonmansion.com/" target="_blank" rel="noopener">Matchington Mansion</a></td><td><a class="store" href="https://apps.apple.com/us/app/matchington-mansion/id1216575026" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=com.matchington.mansion" target="_blank" rel="noopener">GP</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td><a class="store" href="https://galaxystore.samsung.com/detail/com.matchington.mansion.gs" target="_blank" rel="noopener">GAL</a></td><td>—</td><td>—</td><td>—</td></tr>
-            <tr><td><a class="store" href="https://tactilegames.com/games/lilys-garden/" target="_blank" rel="noopener">Lily's Garden</a></td><td><a class="store" href="https://apps.apple.com/us/app/lilys-garden-match-design/id1437783446" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=dk.tactile.lilysgarden" target="_blank" rel="noopener">GP</a></td><td><a class="store" href="https://play.google.com/pc-store/games/details?id=dk.tactile.lilysgarden" target="_blank" rel="noopener">GPG</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td><a class="store" href="https://www.facebook.com/lilysgardengame/" target="_blank" rel="noopener">FB</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-            <tr><td><a class="store" href="https://www.junesjourney.com/" target="_blank" rel="noopener">June's Journey</a></td><td><a class="store" href="https://apps.apple.com/us/app/junes-journey-hidden-objects/id1200391796" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=net.wooga.junes_journey_hidden_object_mystery_game" target="_blank" rel="noopener">GP</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td><a class="store" href="https://www.facebook.com/JunesJourney/" target="_blank" rel="noopener">FB</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-            <tr><td><a class="store" href="https://playrix.com/games/manor-matters" target="_blank" rel="noopener">Manor Matters</a></td><td><a class="store" href="https://apps.apple.com/us/app/manor-matters/id1455953893" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=com.playrix.manormatters" target="_blank" rel="noopener">GP</a></td><td><a class="store" href="https://play.google.com/pc-store/games/details?id=com.playrix.manormatters" target="_blank" rel="noopener">GPG</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td><a class="store" href="https://www.facebook.com/manormatters/" target="_blank" rel="noopener">FB</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-            <tr><td><a class="store" href="https://matchmasters.com/" target="_blank" rel="noopener">Match Masters</a></td><td><a class="store" href="https://apps.apple.com/us/app/match-masters/id1138264921" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=com.funtomic.matchmasters" target="_blank" rel="noopener">GP</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td><a class="store" href="https://www.facebook.com/matchmastersgame/" target="_blank" rel="noopener">FB</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-            <tr><td><a class="store" href="https://belka-games.com/games/clockmaker/" target="_blank" rel="noopener">Clockmaker</a></td><td><a class="store" href="https://apps.apple.com/us/app/clockmaker-match-3-puzzles/id929195587" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=com.belkatechnologies.clockmaker" target="_blank" rel="noopener">GP</a></td><td><a class="store" href="https://play.google.com/pc-store/games/details?id=com.belkatechnologies.clockmaker" target="_blank" rel="noopener">GPG</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td><a class="store" href="https://www.facebook.com/clockmaker.game" target="_blank" rel="noopener">FB</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-            <tr><td><a class="store" href="https://www.wooga.com/games/pearls-peril/" target="_blank" rel="noopener">Pearl's Peril</a></td><td><a class="store" href="https://apps.apple.com/us/app/pearls-peril-hidden-objects/id969456511" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=com.wooga.pearlsperil" target="_blank" rel="noopener">GP</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-            <tr><td><a class="store" href="https://www.wooga.com/games/tropicats/" target="_blank" rel="noopener">Tropicats</a></td><td><a class="store" href="https://apps.apple.com/us/app/tropicats-match-3-puzzle-game/id1215220850" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=net.wooga.tropicats_tropical_cats_puzzle_paradise" target="_blank" rel="noopener">GP</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-            <tr><td><a class="store" href="https://www.mytona.com/games/seekers-notes/" target="_blank" rel="noopener">Seeker's Notes</a></td><td><a class="store" href="https://apps.apple.com/us/app/seekers-notes-hidden-objects/id940292587" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=com.mytona.seekersnotes.android" target="_blank" rel="noopener">GP</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td><a class="store" href="https://store.seekersnotes.com/" target="_blank" rel="noopener">H5</a></td><td><a class="store" href="https://www.facebook.com/SeekersNotes/" target="_blank" rel="noopener">FB</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-            <tr><td><a class="store" href="https://www.futureplaygames.com/games/merge-gardens/" target="_blank" rel="noopener">Merge Gardens</a></td><td><a class="store" href="https://apps.apple.com/us/app/merge-gardens/id1464675244" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=com.futureplay.mergematch" target="_blank" rel="noopener">GP</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td><a class="store" href="https://www.facebook.com/mergegardens/" target="_blank" rel="noopener">FB</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
             <tr><td><a class="store" href="https://www.awem.com/game/cradle-of-empires/" target="_blank" rel="noopener">Cradle of Empires</a></td><td><a class="store" href="https://apps.apple.com/us/app/cradle-of-empires-match-3-game/id738480930" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=com.awem.cradleofempires.andr" target="_blank" rel="noopener">GP</a></td><td>—</td><td><a class="store" href="https://apps.microsoft.com/detail/9pcz2jlb06bn" target="_blank" rel="noopener">MS</a></td><td>—</td><td>—</td><td>—</td><td><a class="store" href="https://www.facebook.com/cradleofempires/" target="_blank" rel="noopener">FB</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td><a class="store" href="https://apkpure.com/cradle-of-empires-match-3-game/com.awem.cradleofempires.andr" target="_blank" rel="noopener">APK</a></td></tr>
-            <tr><td><a class="store" href="https://www.g5.com/games/jewels-of-rome" target="_blank" rel="noopener">Jewels of Rome</a></td><td><a class="store" href="https://apps.apple.com/us/app/jewels-of-rome-match-3-puzzles/id1436038639" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=com.g5e.romepg.android" target="_blank" rel="noopener">GP</a></td><td>—</td><td><a class="store" href="https://apps.microsoft.com/detail/9ngksk2mvqw4" target="_blank" rel="noopener">MS</a></td><td><a class="store" href="https://www.amazon.com.au/Jewels-Rome-Match-gems-restore/dp/B07T753JWJ" target="_blank" rel="noopener">AMZ</a></td><td>—</td><td><a class="store" href="https://www.g5.com/games/jewels-of-rome" target="_blank" rel="noopener">H5</a></td><td>—</td><td>—</td><td>—</td><td><a class="store" href="https://store.steampowered.com/app/4490870/Jewels_of_Rome_Match3_Game_and_City_Builder/" target="_blank" rel="noopener">STM</a></td><td>—</td><td>—</td><td><a class="store" href="https://www.g5.com/games/jewels-of-rome" target="_blank" rel="noopener">G5</a></td><td>—</td></tr>
-            <tr><td><a class="store" href="https://www.g5.com/games/jewels-of-egypt" target="_blank" rel="noopener">Jewels of Egypt</a></td><td><a class="store" href="https://apps.apple.com/us/app/jewels-of-egypt-match-3-puzzle/id1497168487" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=com.g5e.jewelsofegypt.android" target="_blank" rel="noopener">GP</a></td><td>—</td><td><a class="store" href="https://apps.microsoft.com/search?query=Jewels%20of%20Egypt" target="_blank" rel="noopener">MS</a></td><td><a class="store" href="https://www.amazon.com/Jewels-Egypt-Match-Puzzle-Game/dp/B086VHJZQN" target="_blank" rel="noopener">AMZ</a></td><td>—</td><td><a class="store" href="https://www.g5.com/games/jewels-of-egypt" target="_blank" rel="noopener">H5</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td><a class="store" href="https://www.g5.com/games/jewels-of-egypt" target="_blank" rel="noopener">G5</a></td><td>—</td></tr>
+            <tr><td><a class="store" href="https://belka-games.com/games/clockmaker/" target="_blank" rel="noopener">Clockmaker</a></td><td><a class="store" href="https://apps.apple.com/us/app/clockmaker-match-3-puzzles/id929195587" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=com.belkatechnologies.clockmaker" target="_blank" rel="noopener">GP</a></td><td><a class="store" href="https://play.google.com/pc-store/games/details?id=com.belkatechnologies.clockmaker" target="_blank" rel="noopener">GPG</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td><a class="store" href="https://www.facebook.com/clockmaker.game" target="_blank" rel="noopener">FB</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td><a class="store" href="https://playrix.com/games/fishdom" target="_blank" rel="noopener">Fishdom</a></td><td><a class="store" href="https://apps.apple.com/us/app/fishdom/id664575829" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=com.playrix.fishdomdd.gplay" target="_blank" rel="noopener">GP</a></td><td><a class="store" href="https://play.google.com/pc-store/games/details?id=com.playrix.fishdomdd.gplay" target="_blank" rel="noopener">GPG</a></td><td><a class="store" href="https://apps.microsoft.com/search?query=Fishdom" target="_blank" rel="noopener">MS</a></td><td><a class="store" href="https://www.amazon.com/Playrix-Fishdom/dp/B01CBV2K8U" target="_blank" rel="noopener">AMZ</a></td><td>—</td><td>—</td><td><a class="store" href="https://www.facebook.com/Fishdom/" target="_blank" rel="noopener">FB</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td><a class="store" href="https://playrix.com/games/gardenscapes" target="_blank" rel="noopener">Gardenscapes</a></td><td><a class="store" href="https://apps.apple.com/us/app/gardenscapes/id1105855019" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=com.playrix.gardenscapes" target="_blank" rel="noopener">GP</a></td><td><a class="store" href="https://play.google.com/pc-store/games/details?id=com.playrix.gardenscapes" target="_blank" rel="noopener">GPG</a></td><td><a class="store" href="https://apps.microsoft.com/search?query=Gardenscapes" target="_blank" rel="noopener">MS</a></td><td><a class="store" href="https://www.amazon.com/Playrix-Gardenscapes/dp/B01EJU5ZTC" target="_blank" rel="noopener">AMZ</a></td><td><a class="store" href="https://apps.apple.com/us/app/gardenscapes/id1193564816?mt=12" target="_blank" rel="noopener">MAS</a></td><td>—</td><td><a class="store" href="https://www.facebook.com/login/?next=https%3A%2F%2Fapps.facebook.com%2Fgardenscapes%2F#" target="_blank" rel="noopener">FB</a></td><td>—</td><td>—</td><td>—</td><td><a class="store" href="https://galaxystore.samsung.com/detail/com.playrix.gardenscapes.samsung" target="_blank" rel="noopener">GAL</a></td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td><a class="store" href="https://playrix.com/games/homescapes" target="_blank" rel="noopener">Homescapes</a></td><td><a class="store" href="https://apps.apple.com/us/app/homescapes-puzzle-design/id1195621598" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=com.playrix.homescapes" target="_blank" rel="noopener">GP</a></td><td><a class="store" href="https://play.google.com/pc-store/games/details?id=com.playrix.homescapes" target="_blank" rel="noopener">GPG</a></td><td><a class="store" href="https://apps.microsoft.com/search?query=Homescapes" target="_blank" rel="noopener">MS</a></td><td><a class="store" href="https://www.amazon.com/Playrix-Homescapes/dp/B0739V781Z" target="_blank" rel="noopener">AMZ</a></td><td><a class="store" href="https://apps.apple.com/us/app/homescapes-puzzle-design/id1195621598?mt=12" target="_blank" rel="noopener">MAS</a></td><td>—</td><td><a class="store" href="https://apps.facebook.com/homescapes/" target="_blank" rel="noopener">FB</a></td><td>—</td><td>—</td><td>—</td><td><a class="store" href="https://galaxystore.samsung.com/detail/com.playrix.homescapes.samsung" target="_blank" rel="noopener">GAL</a></td><td>—</td><td>—</td><td><a class="store" href="https://apkpure.com/homescapes-android/com.playrix.homescapes" target="_blank" rel="noopener">APK</a></td></tr>
+            <tr><td><a class="store" href="https://www.matchingtonmansion.com/" target="_blank" rel="noopener">Matchington Mansion</a></td><td><a class="store" href="https://apps.apple.com/us/app/matchington-mansion/id1216575026" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=com.matchington.mansion" target="_blank" rel="noopener">GP</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td><a class="store" href="https://galaxystore.samsung.com/detail/com.matchington.mansion.gs" target="_blank" rel="noopener">GAL</a></td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td><a class="store" href="https://www.projectmakeover.com/" target="_blank" rel="noopener">Project Makeover</a></td><td><a class="store" href="https://apps.apple.com/us/app/project-makeover/id1483058899" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=com.bgg.jump" target="_blank" rel="noopener">GP</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td><a class="store" href="https://www.wooga.com/games/tropicats/" target="_blank" rel="noopener">Tropicats</a></td><td><a class="store" href="https://apps.apple.com/us/app/tropicats-match-3-puzzle-game/id1215220850" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=net.wooga.tropicats_tropical_cats_puzzle_paradise" target="_blank" rel="noopener">GP</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td><a class="store" href="https://www.junesjourney.com/" target="_blank" rel="noopener">June's Journey</a></td><td><a class="store" href="https://apps.apple.com/us/app/junes-journey-hidden-objects/id1200391796" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=net.wooga.junes_journey_hidden_object_mystery_game" target="_blank" rel="noopener">GP</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td><a class="store" href="https://www.facebook.com/JunesJourney/" target="_blank" rel="noopener">FB</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td><a class="store" href="https://tactilegames.com/games/lilys-garden/" target="_blank" rel="noopener">Lily's Garden</a></td><td><a class="store" href="https://apps.apple.com/us/app/lilys-garden-match-design/id1437783446" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=dk.tactile.lilysgarden" target="_blank" rel="noopener">GP</a></td><td><a class="store" href="https://play.google.com/pc-store/games/details?id=dk.tactile.lilysgarden" target="_blank" rel="noopener">GPG</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td><a class="store" href="https://www.facebook.com/lilysgardengame/" target="_blank" rel="noopener">FB</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td><a class="store" href="https://www.outplay.com/games/mystery-match-village/" target="_blank" rel="noopener">Mystery Match Village</a></td><td><a class="store" href="https://apps.apple.com/us/app/mystery-match-village/id1509700806" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=com.outplayentertainment.mmv" target="_blank" rel="noopener">GP</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td><a class="store" href="https://www.wooga.com/games/pearls-peril/" target="_blank" rel="noopener">Pearl's Peril</a></td><td><a class="store" href="https://apps.apple.com/us/app/pearls-peril-hidden-objects/id969456511" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=com.wooga.pearlsperil" target="_blank" rel="noopener">GP</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td><a class="store" href="https://playrix.com/games/manor-matters" target="_blank" rel="noopener">Manor Matters</a></td><td><a class="store" href="https://apps.apple.com/us/app/manor-matters/id1455953893" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=com.playrix.manormatters" target="_blank" rel="noopener">GP</a></td><td><a class="store" href="https://play.google.com/pc-store/games/details?id=com.playrix.manormatters" target="_blank" rel="noopener">GPG</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td><a class="store" href="https://www.facebook.com/manormatters/" target="_blank" rel="noopener">FB</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td><a class="store" href="https://www.futureplaygames.com/games/merge-gardens/" target="_blank" rel="noopener">Merge Gardens</a></td><td><a class="store" href="https://apps.apple.com/us/app/merge-gardens/id1464675244" target="_blank" rel="noopener">AS</a></td><td><a class="store" href="https://play.google.com/store/apps/details?id=com.futureplay.mergematch" target="_blank" rel="noopener">GP</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td><a class="store" href="https://www.facebook.com/mergegardens/" target="_blank" rel="noopener">FB</a></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
           </tbody>
         </table>
       </div>
 
+      <div class="agent-only">
       <h3>Как проверять системно по каждому конкуренту</h3>
       <div class="legend">
         <span><strong>Шаг 1 — сайт игры:</strong> открыть официальный сайт тайтла/издателя и зафиксировать все store badges (iOS/GP/Amazon/Windows/Mac/Web/Facebook).</span>
@@ -589,10 +582,7 @@
         <span><strong>Шаг 4 — desktop:</strong> классифицировать тип дистрибуции: native client / store app / Android-on-PC / browser.</span>
         <span><strong>Шаг 5 — статус:</strong> отмечать как <em>Confirmed</em>, <em>Limited</em> (регион/устройство), или <em>Not confirmed</em>.</span>
       </div>
-
-      <p class="note">
-        вероятно, в части источников идет смешение с другими Atlantis-брендами. Для него нужна отдельная ручная валидация названия/пакета перед медийным бенчмарком.
-      </p>
+      </div>
     </section>
 
 
@@ -621,10 +611,10 @@
           <tbody>
             <tr class="am-filled">
               <td><strong>Clockmaker</strong></td>
-              <td class="am-val">$1,067,711</td>
-              <td class="am-val">$344,303,932</td>
-              <td class="am-val">225,593</td>
-              <td class="am-val">42,218,664</td>
+              <td class="am-val">$1.1M</td>
+              <td class="am-val">$344.3M</td>
+              <td class="am-val">225.6K</td>
+              <td class="am-val">42.2M</td>
               <td class="am-val">$18.22</td>
               <td class="am-val">$7.77</td>
               <td class="am-val">$8.16</td>
@@ -632,10 +622,10 @@
             </tr>
             <tr class="am-filled">
               <td><strong>Gardenscapes</strong></td>
-              <td class="am-val">$35,506,464</td>
-              <td class="am-val">$4,460,353,106</td>
-              <td class="am-val">3,419,571</td>
-              <td class="am-val">727,576,336</td>
+              <td class="am-val">$35.5M</td>
+              <td class="am-val">$4.5B</td>
+              <td class="am-val">3.4M</td>
+              <td class="am-val">727.6M</td>
               <td class="am-val">$18.16</td>
               <td class="am-val">$16.35</td>
               <td class="am-val">$6.13</td>
@@ -643,10 +633,10 @@
             </tr>
             <tr class="am-filled">
               <td><strong>Homescapes</strong></td>
-              <td class="am-val">$25,060,667</td>
-              <td class="am-val">$3,702,475,808</td>
-              <td class="am-val">1,907,626</td>
-              <td class="am-val">650,509,880</td>
+              <td class="am-val">$25.1M</td>
+              <td class="am-val">$3.7B</td>
+              <td class="am-val">1.9M</td>
+              <td class="am-val">650.5M</td>
               <td class="am-val">$16.02</td>
               <td class="am-val">$14.03</td>
               <td class="am-val">$5.69</td>
@@ -654,10 +644,10 @@
             </tr>
             <tr class="am-filled">
               <td><strong>Matchington Mansion</strong></td>
-              <td class="am-val">$2,781,731</td>
-              <td class="am-val">$729,797,803</td>
-              <td class="am-val">400,697</td>
-              <td class="am-val">209,601,592</td>
+              <td class="am-val">$2.8M</td>
+              <td class="am-val">$729.8M</td>
+              <td class="am-val">400.7K</td>
+              <td class="am-val">209.6M</td>
               <td class="am-val">$9.97</td>
               <td class="am-val">$8.83</td>
               <td class="am-val">$3.48</td>
@@ -665,10 +655,10 @@
             </tr>
             <tr class="am-filled">
               <td><strong>Fishdom</strong></td>
-              <td class="am-val">$20,485,287</td>
-              <td class="am-val">$2,437,982,921</td>
-              <td class="am-val">1,147,319</td>
-              <td class="am-val">571,282,879</td>
+              <td class="am-val">$20.5M</td>
+              <td class="am-val">$2.4B</td>
+              <td class="am-val">1.1M</td>
+              <td class="am-val">571.3M</td>
               <td class="am-val">$12.92</td>
               <td class="am-val">$9.51</td>
               <td class="am-val">$4.27</td>
@@ -676,10 +666,10 @@
             </tr>
             <tr class="am-filled">
               <td><strong>Project Makeover</strong></td>
-              <td class="am-val">$5,442,143</td>
-              <td class="am-val">$816,453,808</td>
-              <td class="am-val">1,527,618</td>
-              <td class="am-val">302,776,836</td>
+              <td class="am-val">$5.4M</td>
+              <td class="am-val">$816.5M</td>
+              <td class="am-val">1.5M</td>
+              <td class="am-val">302.8M</td>
               <td class="am-val">$8.15</td>
               <td class="am-val">$6.24</td>
               <td class="am-val">$2.70</td>
@@ -687,10 +677,10 @@
             </tr>
             <tr class="am-filled">
               <td><strong>Tropicats</strong></td>
-              <td class="am-val">$34,505</td>
-              <td class="am-val">$19,545,784</td>
-              <td class="am-val">1,325</td>
-              <td class="am-val">3,849,534</td>
+              <td class="am-val">$34.5K</td>
+              <td class="am-val">$19.5M</td>
+              <td class="am-val">1.3K</td>
+              <td class="am-val">3.8M</td>
               <td class="am-val">$8.29</td>
               <td class="am-na">—</td>
               <td class="am-val">$5.08</td>
@@ -698,10 +688,10 @@
             </tr>
             <tr class="am-filled">
               <td><strong>Lily's Garden</strong></td>
-              <td class="am-val">$1,456,785</td>
-              <td class="am-val">$443,282,787</td>
-              <td class="am-val">201,191</td>
-              <td class="am-val">84,854,769</td>
+              <td class="am-val">$1.5M</td>
+              <td class="am-val">$443.3M</td>
+              <td class="am-val">201.2K</td>
+              <td class="am-val">84.9M</td>
               <td class="am-val">$17.34</td>
               <td class="am-val">$5.31</td>
               <td class="am-val">$5.22</td>
@@ -709,9 +699,9 @@
             </tr>
             <tr class="am-filled">
               <td><strong>Mystery Match Village</strong></td>
-              <td class="am-val">$408,439</td>
+              <td class="am-val">$408.4K</td>
               <td class="am-na">—</td>
-              <td class="am-val">485,521</td>
+              <td class="am-val">485.5K</td>
               <td class="am-na">—</td>
               <td class="am-val">$1.37</td>
               <td class="am-na">—</td>
@@ -720,10 +710,10 @@
             </tr>
             <tr class="am-filled">
               <td><strong>Manor Matters</strong></td>
-              <td class="am-val">$1,657,349</td>
-              <td class="am-val">$224,586,624</td>
-              <td class="am-val">111,923</td>
-              <td class="am-val">58,260,848</td>
+              <td class="am-val">$1.7M</td>
+              <td class="am-val">$224.6M</td>
+              <td class="am-val">111.9K</td>
+              <td class="am-val">58.3M</td>
               <td class="am-val">$9.00</td>
               <td class="am-val">$10.69</td>
               <td class="am-val">$3.85</td>
@@ -731,10 +721,10 @@
             </tr>
             <tr class="am-filled">
               <td><strong>June's Journey</strong></td>
-              <td class="am-val">$8,908,784</td>
-              <td class="am-val">$943,495,793</td>
-              <td class="am-val">521,834</td>
-              <td class="am-val">84,151,211</td>
+              <td class="am-val">$8.9M</td>
+              <td class="am-val">$943.5M</td>
+              <td class="am-val">521.8K</td>
+              <td class="am-val">84.2M</td>
               <td class="am-val">$21.51</td>
               <td class="am-val">$11.91</td>
               <td class="am-val">$11.21</td>
@@ -742,10 +732,10 @@
             </tr>
             <tr class="am-filled">
               <td><strong>Pearl's Peril</strong></td>
-              <td class="am-val">$136,120</td>
-              <td class="am-val">$86,610,060</td>
-              <td class="am-val">40,388</td>
-              <td class="am-val">21,286,261</td>
+              <td class="am-val">$136.1K</td>
+              <td class="am-val">$86.6M</td>
+              <td class="am-val">40.4K</td>
+              <td class="am-val">21.3M</td>
               <td class="am-val">$5.87</td>
               <td class="am-val">$3.34</td>
               <td class="am-val">$4.07</td>
@@ -753,10 +743,10 @@
             </tr>
             <tr class="am-filled">
               <td><strong>Merge Gardens</strong></td>
-              <td class="am-val">$1,548,019</td>
-              <td class="am-val">$118,011,903</td>
-              <td class="am-val">96,675</td>
-              <td class="am-val">17,653,986</td>
+              <td class="am-val">$1.5M</td>
+              <td class="am-val">$118M</td>
+              <td class="am-val">96.7K</td>
+              <td class="am-val">17.7M</td>
               <td class="am-val">$9.44</td>
               <td class="am-val">$5.55</td>
               <td class="am-val">$6.68</td>
@@ -764,10 +754,10 @@
             </tr>
             <tr class="am-filled am-tier-mega">
               <td><strong>Royal Match</strong></td>
-              <td class="am-val">$98,172,485</td>
-              <td class="am-val">$4,968,748,815</td>
-              <td class="am-val">3,926,419</td>
-              <td class="am-val">426,574,633</td>
+              <td class="am-val">$98.2M</td>
+              <td class="am-val">$5B</td>
+              <td class="am-val">3.9M</td>
+              <td class="am-val">426.6M</td>
               <td class="am-val">$35.29</td>
               <td class="am-val">$26.15</td>
               <td class="am-val">$11.65</td>
@@ -775,10 +765,10 @@
             </tr>
             <tr class="am-filled am-tier-mega">
               <td><strong>Candy Crush Saga</strong></td>
-              <td class="am-val">$85,121,577</td>
-              <td class="am-val">$8,932,895,619</td>
-              <td class="am-val">7,629,373</td>
-              <td class="am-val">1,474,920,497</td>
+              <td class="am-val">$85.1M</td>
+              <td class="am-val">$8.9B</td>
+              <td class="am-val">7.6M</td>
+              <td class="am-val">1.5B</td>
               <td class="am-val">$29.15</td>
               <td class="am-val">$15.95</td>
               <td class="am-val">$6.06</td>
@@ -786,10 +776,10 @@
             </tr>
             <tr class="am-filled">
               <td><strong>Toon Blast</strong></td>
-              <td class="am-val">$30,368,407</td>
-              <td class="am-val">$2,302,557,334</td>
-              <td class="am-val">902,204</td>
-              <td class="am-val">186,216,730</td>
+              <td class="am-val">$30.4M</td>
+              <td class="am-val">$2.3B</td>
+              <td class="am-val">902.2K</td>
+              <td class="am-val">186.2M</td>
               <td class="am-val">$18.10</td>
               <td class="am-val">$22.49</td>
               <td class="am-val">$12.36</td>
@@ -797,10 +787,10 @@
             </tr>
             <tr class="am-filled">
               <td><strong>Royal Kingdom</strong></td>
-              <td class="am-val">$36,598,078</td>
-              <td class="am-val">$474,209,737</td>
-              <td class="am-val">10,263,957</td>
-              <td class="am-val">136,251,227</td>
+              <td class="am-val">$36.6M</td>
+              <td class="am-val">$474.2M</td>
+              <td class="am-val">10.3M</td>
+              <td class="am-val">136.3M</td>
               <td class="am-val">$9.23</td>
               <td class="am-val">$4.82</td>
               <td class="am-val">$3.48</td>
@@ -808,10 +798,10 @@
             </tr>
             <tr class="am-filled">
               <td><strong>Travel Town</strong></td>
-              <td class="am-val">$15,945,087</td>
-              <td class="am-val">$616,358,730</td>
-              <td class="am-val">2,448,372</td>
-              <td class="am-val">94,818,689</td>
+              <td class="am-val">$15.9M</td>
+              <td class="am-val">$616.4M</td>
+              <td class="am-val">2.4M</td>
+              <td class="am-val">94.8M</td>
               <td class="am-val">$10.37</td>
               <td class="am-val">$14.70</td>
               <td class="am-val">$6.50</td>
@@ -819,10 +809,10 @@
             </tr>
             <tr class="am-filled">
               <td><strong>Match Factory!</strong></td>
-              <td class="am-val">$15,149,373</td>
-              <td class="am-val">$449,556,958</td>
-              <td class="am-val">1,225,498</td>
-              <td class="am-val">58,355,456</td>
+              <td class="am-val">$15.1M</td>
+              <td class="am-val">$449.6M</td>
+              <td class="am-val">1.2M</td>
+              <td class="am-val">58.4M</td>
               <td class="am-val">$13.00</td>
               <td class="am-val">$6.29</td>
               <td class="am-val">$7.70</td>
@@ -830,10 +820,10 @@
             </tr>
             <tr class="am-filled">
               <td><strong>Candy Crush Soda Saga</strong></td>
-              <td class="am-val">$12,838,983</td>
-              <td class="am-val">$2,961,484,302</td>
-              <td class="am-val">1,517,681</td>
-              <td class="am-val">577,678,801</td>
+              <td class="am-val">$12.8M</td>
+              <td class="am-val">$3B</td>
+              <td class="am-val">1.5M</td>
+              <td class="am-val">577.7M</td>
               <td class="am-val">$18.44</td>
               <td class="am-val">$7.48</td>
               <td class="am-val">$5.13</td>
@@ -841,10 +831,10 @@
             </tr>
             <tr class="am-filled">
               <td><strong>Toy Blast</strong></td>
-              <td class="am-val">$5,592,127</td>
-              <td class="am-val">$1,183,575,031</td>
-              <td class="am-val">421,772</td>
-              <td class="am-val">153,260,748</td>
+              <td class="am-val">$5.6M</td>
+              <td class="am-val">$1.2B</td>
+              <td class="am-val">421.8K</td>
+              <td class="am-val">153.3M</td>
               <td class="am-val">$14.87</td>
               <td class="am-val">$11.03</td>
               <td class="am-val">$7.72</td>
@@ -852,10 +842,10 @@
             </tr>
             <tr class="am-filled">
               <td><strong>Match Masters</strong></td>
-              <td class="am-val">$3,919,816</td>
-              <td class="am-val">$447,968,867</td>
-              <td class="am-val">482,832</td>
-              <td class="am-val">79,545,958</td>
+              <td class="am-val">$3.9M</td>
+              <td class="am-val">$448M</td>
+              <td class="am-val">482.8K</td>
+              <td class="am-val">79.5M</td>
               <td class="am-val">$9.87</td>
               <td class="am-val">$5.19</td>
               <td class="am-val">$5.63</td>
@@ -863,10 +853,10 @@
             </tr>
             <tr class="am-filled">
               <td><strong>Seeker's Notes</strong></td>
-              <td class="am-val">$2,431,686</td>
-              <td class="am-val">$363,786,418</td>
-              <td class="am-val">143,563</td>
-              <td class="am-val">40,073,980</td>
+              <td class="am-val">$2.4M</td>
+              <td class="am-val">$363.8M</td>
+              <td class="am-val">143.6K</td>
+              <td class="am-val">40.1M</td>
               <td class="am-val">$15.46</td>
               <td class="am-val">$5.37</td>
               <td class="am-val">$9.08</td>
@@ -875,7 +865,7 @@
           </tbody>
         </table>
       </div>
-      <p class="note">
+      <p class="note agent-only">
         <strong>Как читать таблицу.</strong>
         Доход и установки за 30 дней — за последний месяц, суммарно по обоим сторам (чистый IAP, без рекламы).
         Доход и установки «за всё время» — накопленные с запуска, тоже по обоим сторам.
@@ -1515,7 +1505,7 @@
               <td>39<br>&lt;1%</td>
               <td>800K<br>1%</td>
               <td>13<br>&lt;1%</td>
-              <td>4500<br>&lt;1%</td>
+              <td>4.5K<br>&lt;1%</td>
               <td>—</td>
               <td>—</td>
               <td>—</td>
@@ -1557,7 +1547,7 @@
               <td>—</td>
               <td>—</td>
               <td>—</td>
-              <td>1500<br>&lt;1%</td>
+              <td>1.5K<br>&lt;1%</td>
             </tr>
                                                 <tr>
               <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_com.playrix.fishdomdd.gplay&platform=ios" target="_blank" rel="noopener">Fishdom</a></td>
@@ -1568,7 +1558,7 @@
               <td>300K<br>6%</td>
               <td>400K<br>9%</td>
               <td>—</td>
-              <td>1000<br>&lt;1%</td>
+              <td>1K<br>&lt;1%</td>
               <td>—</td>
               <td>—</td>
               <td>—</td>
@@ -1585,7 +1575,7 @@
               <td>—</td>
               <td>—</td>
               <td>—</td>
-              <td>1000<br>&lt;1%</td>
+              <td>1K<br>&lt;1%</td>
             </tr>
                                                 <tr>
               <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_com.dreamgames.royalkingdom&platform=ios" target="_blank" rel="noopener">Royal Kingdom</a></td>
@@ -1596,8 +1586,8 @@
               <td>—</td>
               <td>—</td>
               <td>200<br>&lt;1%</td>
-              <td>1800<br>&lt;1%</td>
-              <td>1100<br>&lt;1%</td>
+              <td>1.8K<br>&lt;1%</td>
+              <td>1.1K<br>&lt;1%</td>
               <td>2.1M<br>&lt;1%</td>
               <td>9M<br>2%</td>
               <td>500<br>&lt;1%</td>
@@ -1725,7 +1715,7 @@
               <td>—</td>
               <td>—</td>
               <td>—</td>
-              <td>6000<br>1%</td>
+              <td>6K<br>1%</td>
             </tr>
                                     <tr>
               <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=2_890378044&platform=ios" target="_blank" rel="noopener">Toy Blast</a></td>
@@ -1743,7 +1733,7 @@
               <td>26K<br>1%</td>
               <td>—</td>
               <td>—</td>
-              <td>1500<br>1%</td>
+              <td>1.5K<br>1%</td>
               <td>—</td>
               <td>—</td>
               <td>—</td>
@@ -1752,8 +1742,8 @@
               <td>—</td>
               <td>800K<br>4%</td>
               <td>—</td>
-              <td>1000<br>1%</td>
-              <td>3000<br>1%</td>
+              <td>1K<br>1%</td>
+              <td>3K<br>1%</td>
             </tr>
                                     <tr>
               <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_com.matchington.mansion&platform=ios" target="_blank" rel="noopener">Matchington Mansion</a></td>
@@ -1781,7 +1771,7 @@
               <td>—</td>
               <td>—</td>
               <td>—</td>
-              <td>1000<br>1%</td>
+              <td>1K<br>1%</td>
             </tr>
                                     <tr>
               <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_dk.tactile.lilysgarden&platform=ios" target="_blank" rel="noopener">Lily's Garden</a></td>
@@ -1815,7 +1805,7 @@
               <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_net.wooga.junes_journey_hidden_object_mystery_game&platform=ios" target="_blank" rel="noopener">June's Journey</a></td>
               <td>21M</td>
               <td>70K<br>1%</td>
-              <td>1300<br>1%</td>
+              <td>1.3K<br>1%</td>
               <td>7.5M<br>36%</td>
               <td>4M<br>18%</td>
               <td>—</td>
@@ -1827,7 +1817,7 @@
               <td>110K<br>1%</td>
               <td>—</td>
               <td>—</td>
-              <td>1300<br>1%</td>
+              <td>1.3K<br>1%</td>
               <td>—</td>
               <td>—</td>
               <td>—</td>
@@ -1865,7 +1855,7 @@
               <td>—</td>
               <td>—</td>
               <td>—</td>
-              <td>1500<br>1%</td>
+              <td>1.5K<br>1%</td>
             </tr>
                                     <tr>
               <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_com.funtomic.matchmasters&platform=ios" target="_blank" rel="noopener">Match Masters</a></td>
@@ -1877,12 +1867,12 @@
               <td>—</td>
               <td>—</td>
               <td>190K<br>1%</td>
-              <td>1300<br>1%</td>
+              <td>1.3K<br>1%</td>
               <td>197<br>1%</td>
               <td>13.5M<br>15%</td>
               <td>20M<br>23%</td>
               <td>—</td>
-              <td>2300<br>1%</td>
+              <td>2.3K<br>1%</td>
               <td>3K<br>1%</td>
               <td>—</td>
               <td>1.4M<br>1%</td>
@@ -1892,7 +1882,7 @@
               <td>—</td>
               <td>—</td>
               <td>—</td>
-              <td>1000<br>1%</td>
+              <td>1K<br>1%</td>
               <td>25K<br>1%</td>
             </tr>
                                     <tr>
@@ -1904,7 +1894,7 @@
               <td>1M<br>20%</td>
               <td>—</td>
               <td>900<br>1%</td>
-              <td>1300<br>1%</td>
+              <td>1.3K<br>1%</td>
               <td>—</td>
               <td>—</td>
               <td>1.6M<br>31%</td>
@@ -1920,8 +1910,8 @@
               <td>—</td>
               <td>—</td>
               <td>—</td>
-              <td>3500<br>1%</td>
-              <td>2000<br>1%</td>
+              <td>3.5K<br>1%</td>
+              <td>2K<br>1%</td>
             </tr>
                                                 <tr>
               <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=1_com.wooga.pearlsperil&platform=ios" target="_blank" rel="noopener">Pearl's Peril</a></td>
@@ -2089,7 +2079,7 @@
               <td>—</td>
               <td>—</td>
               <td>800<br>1%</td>
-              <td>3000<br>1%</td>
+              <td>3K<br>1%</td>
             </tr>
                                                 <tr>
               <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=2_1436038639&platform=ios" target="_blank" rel="noopener">Jewels of Rome</a></td>
@@ -2122,7 +2112,7 @@
                                                 <tr>
               <td><a class="store" href="https://appmagic.rocks/ad-intelligence?appId=2_1497168487&platform=ios" target="_blank" rel="noopener">Jewels of Egypt</a></td>
               <td>3.5K</td>
-              <td>2000<br>57%</td>
+              <td>2K<br>57%</td>
               <td>—</td>
               <td>—</td>
               <td>—</td>
@@ -2145,14 +2135,11 @@
               <td>—</td>
               <td>—</td>
               <td>—</td>
-              <td>1600<br>43%</td>
+              <td>1.6K<br>43%</td>
             </tr>
           </tbody>
         </table>
       </div>
-      <p class="note">
-        Формат: колонка суммы показов и Mobvista. <strong>—</strong> в ячейках сетей = нет показов по этому источнику за 90d. Строки без названия игры убраны.
-      </p>
     </section>
 
 
@@ -2318,8 +2305,15 @@
       function parseNumber(text) {
         if (!text || text === '—') return null;
         var cleaned = String(text).replace(/\$/g, '').replace(/,/g, '').trim();
-        var value = parseFloat(cleaned);
-        return isNaN(value) ? null : value;
+        var match = cleaned.match(/^(\d+(?:\.\d+)?)\s*([KMB])?$/i);
+        if (!match) return null;
+        var value = parseFloat(match[1]);
+        if (isNaN(value)) return null;
+        var unit = (match[2] || '').toUpperCase();
+        if (unit === 'B') return value * 1e9;
+        if (unit === 'M') return value * 1e6;
+        if (unit === 'K') return value * 1e3;
+        return value;
       }
 
       function cellValue(cell, colIndex, sortType) {
